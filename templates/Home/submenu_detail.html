@@ -1,0 +1,86 @@
+{% extends "Home/Base.html" %}
+{% load static %}
+{% block content %}
+<!-- ================= CONTENT SECTION ================= -->
+{% if menu_view.pagecontent %}
+<section class="main-page-section">
+    <div class="container">
+        <div class="glass-card main-content-box">
+            <div class="editor-content">
+                {{ menu_view.pagecontent|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ================= COURSES ================= -->
+<style>
+.main-page-section {
+    position: relative;
+    z-index: 5;
+    padding-bottom: 60px;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 60px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.editor-content {
+    color: var(--text-dark);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    overflow-wrap: break-word;
+}
+
+.editor-content h2 {
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Responsive Images */
+.editor-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 15px auto;
+}
+
+/* Responsive Tables */
+.editor-content table {
+    width: 100% !important;
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+
+/* Responsive iframe (YouTube etc.) */
+.editor-content iframe,
+.editor-content video {
+    max-width: 100% !important;
+    height: auto;
+}
+
+/* Long words */
+.editor-content * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mobile */
+@media (max-width:768px) {
+    .glass-card {
+        padding: 10px;
+    }
+
+    .editor-content {
+        font-size: 13px;
+    }
+}
+</style>
+{% endblock %}

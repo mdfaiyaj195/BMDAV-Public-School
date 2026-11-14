@@ -1,0 +1,411 @@
+:root {
+    --primary-red: #FF4B2B;
+    --secondary-red: #FF416C;
+    --primary-orange: #FF8008;
+    --secondary-orange: #FFA751;
+    --primary-yellow: #FFD93D;
+    --secondary-yellow: #FFE162;
+    --text-dark: #333333;
+    --text-light: #FFFFFF;
+    --gradient-hot: linear-gradient(45deg, var(--primary-red), var(--primary-orange));
+    --gradient-warm: linear-gradient(45deg, var(--primary-orange), var(--primary-yellow));
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.welcome {
+    font-size: 1.5rem;
+    color: var(--primary-red);
+    font-weight: bold;
+}
+
+.brand-title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    background: var(--gradient-hot);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-description {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background: var(--gradient-hot);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-light);
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background: var(--gradient-warm);
+    transform: scale(1.05);
+}
+
+.carousel {
+    max-width: 100%;
+    position: relative;
+}
+
+.carousel-img {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 8%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.carousel-control-prev {
+    left: -25px;
+}
+
+.carousel-control-next {
+    right: -25px;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #eb370e;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+
+@media (max-width: 768px) {
+    .brand-title {
+        font-size: 2rem;
+    }
+
+    .brand-description {
+        font-size: 1rem;
+    }
+
+    .carousel-img {
+        height: 200px;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 12%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .carousel-control-prev {
+        left: 5px;
+    }
+
+    .carousel-control-next {
+        right: 5px;
+    }
+}
+
+
+/* card-section */
+
+/* Card Base Styles */
+.category-card {
+border: none;
+border-radius: 15px;
+overflow: hidden;
+transition: transform 0.3s ease;
+height: 100%;
+position: relative;
+background: #fff;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+padding: 1rem;
+}
+
+.category-card:hover {
+transform: translateY(-5px);
+}
+
+/* Yellow Shape Styles */
+.card-body {
+padding: 1.5rem 1rem;
+position: relative;
+z-index: 1;
+}
+
+.card-body::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 40%;
+background: var(--gradient-warm);
+border-radius: 0 0 71% 30% / 0 0 96% 90%;
+transform: scale(1.5);
+z-index: -1;
+}
+
+/* Icon Styles */
+.category-icon {
+font-size: 2rem;
+color: #333;
+margin-bottom: 1rem;
+position: relative;
+z-index: 2;
+}
+
+/* Text Styles */
+.card-title {
+color: #333;
+font-size: 1rem;
+font-weight: 600;
+margin-bottom: 0.5rem;
+}
+
+.card-text {
+color: #666;
+font-size: 0.9rem;
+margin-bottom: 1rem;
+}
+
+/* View Courses Button */
+.btn-primary {
+font-size: 0.9rem;
+padding: 8px 12px;
+border-radius: 20px;
+}
+
+/* Grid Layout for 5 Cards per Row */
+@media (min-width: 1200px) {
+.col-lg-2-4 {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+}
+
+@media (max-width: 1200px) {
+.col-lg-2-4 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+}
+
+@media (max-width: 992px) {
+.col-md-4 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+}
+}
+
+@media (max-width: 768px) {
+.col-md-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+}
+
+@media (max-width: 576px) {
+.col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+}
+
+/* Topper's Section */
+
+
+/* Toppers Section */
+.topper-section {
+    max-width: 90%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+/* Carousel Container */
+#topperCarousel {
+    position: relative;
+    background: #f6ddb4;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* Row inside carousel */
+.carousel-inner .row {
+    display: flex;
+    justify-content: center;
+}
+
+/* Topper Card */
+.topper-card {
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.topper-card:hover {
+    transform: scale(1.05);
+}
+
+/* Topper Image */
+.topper-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Topper Name */
+.topper-card h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Rank & Batch */
+.topper-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Button */
+.topper-btn {
+    background:var(--gradient-hot);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.topper-btn:hover {
+    background: var(--gradient-warm);
+}
+
+/* Navigation Buttons */
+.carousel-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-warm);
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+/* Announcement Section */
+.announcement-section {
+    margin-top: 40px;
+    padding: 50px 0;
+    overflow: hidden;
+}
+
+.announcement-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.announcement-card {
+    min-width: 300px;
+    flex: 0 0 calc(33.333% - 20px);
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.announcement-card:nth-child(3n+1) {
+    background-color: #00a651;
+    color: white;
+}
+
+.announcement-card:nth-child(3n+2) {
+    background-color: #ffa500;
+    color: white;
+}
+
+.announcement-card:nth-child(3n+3) {
+    background-color: #dc3545;
+    color: white;
+}
+
+.announcement-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: white;
+}
+
+.announcement-desc {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.announcement-date {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #333;
+}
+
+@media (max-width: 992px) {
+    .announcement-card {
+        flex: 0 0 calc(50% - 20px);
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .announcement-card {
+        flex: 0 0 calc(100% - 20px);
+        min-width: 280px;
+    }
+}

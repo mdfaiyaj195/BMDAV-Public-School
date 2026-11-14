@@ -1,0 +1,421 @@
+{% extends "Admin/Base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire("{{ message }}");
+    </script>
+    {% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="card card-flush mb-5 p-3 shadow">
+
+                <div class="row mb-2">
+
+                    <div class="col-lg-6">
+                        <a href="javascript:history.back()">
+                            <i class="fa fa-backward"></i> Back
+                        </a>
+                    </div>
+
+                    <div class="col-lg-6 text-end">
+                        <button class="btn btn-info"
+                                data-bs-toggle="modal"
+                                data-bs-target="#addBirthdayModal">
+                            ADD
+                        </button>
+                    </div>
+
+                </div>
+
+                <h5 class="bg-success text-white p-2">
+                    Birthday Management
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead class="table-dark">
+
+                        <tr>
+
+                            <th>S.No.</th>
+                            <th>Student Name</th>
+                            <th>Father Name</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>DOB</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for birthday in birthday_list %}
+
+                        <tr>
+
+                            <td>{{ forloop.counter }}</td>
+
+                            <td>{{ birthday.student_name }}</td>
+
+                            <td>{{ birthday.father_name }}</td>
+
+                            <td>{{ birthday.class_name }}</td>
+
+                            <td>{{ birthday.section }}</td>
+
+                            <td>{{ birthday.dob }}</td>
+
+                            <td>
+
+                                <img src="{{ birthday.image.url }}"
+                                     width="70">
+
+                            </td>
+
+                            <td>
+
+                                {% if birthday.status %}
+
+                                <span class="badge bg-success">
+                                    Active
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge bg-danger">
+                                    Inactive
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <button class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editBirthday{{ birthday.id }}">
+
+                                    <i class="fa fa-edit"></i>
+
+                                </button>
+
+                                <button class="btn btn-danger btn-sm delete-btn"
+                                        data-id="{{ birthday.id }}">
+
+                                    <i class="fa fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <!-- Edit Modal -->
+
+                        <div class="modal fade"
+                             id="editBirthday{{ birthday.id }}">
+
+                            <div class="modal-dialog">
+
+                                <div class="modal-content">
+
+                                    <form action="{% url 'edit_birthday' birthday.id %}"
+                                          method="POST"
+                                          enctype="multipart/form-data">
+
+                                        {% csrf_token %}
+
+                                        <div class="modal-header bg-warning">
+
+                                            <h5>Edit Birthday</h5>
+
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <label>Student Name</label>
+
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="student_name"
+                                                   value="{{ birthday.student_name }}">
+
+                                            <br>
+
+                                            <label>Father Name</label>
+
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="father_name"
+                                                   value="{{ birthday.father_name }}">
+
+                                            <br>
+
+                                            <label>Class</label>
+
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="class_name"
+                                                   value="{{ birthday.class_name }}">
+
+                                            <br>
+
+                                            <label>Section</label>
+
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="section"
+                                                   value="{{ birthday.section }}">
+
+                                            <br>
+
+                                            <label>Date Of Birth</label>
+
+                                            <input type="date"
+                                                   class="form-control"
+                                                   name="dob"
+                                                   value="{{ birthday.dob|date:'Y-m-d' }}">
+
+                                            <br>
+
+                                            <label>Image</label>
+
+                                            <input type="file"
+                                                   class="form-control"
+                                                   name="image">
+
+                                            <br>
+
+                                            <img src="{{ birthday.image.url }}"
+                                                 width="120">
+
+                                            <br><br>
+
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="status"
+                                                       {% if birthday.status %}checked{% endif %}>
+
+                                                <label>Active</label>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="modal-footer">
+
+                                            <button class="btn btn-warning">
+                                                Update
+                                            </button>
+
+                                            <button class="btn btn-danger"
+                                                    data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="9"
+                                class="text-center">
+
+                                No Birthday Record Found
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Add Modal -->
+
+<div class="modal fade"
+     id="addBirthdayModal">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form action="{% url 'birthday' %}"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="modal-header bg-success">
+
+                    <h5 class="text-white">
+                        Add Birthday
+                    </h5>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <label>Student Name</label>
+
+                    <input type="text"
+                           class="form-control"
+                           name="student_name"
+                           required>
+
+                    <br>
+
+                    <label>Father Name</label>
+
+                    <input type="text"
+                           class="form-control"
+                           name="father_name"
+                           required>
+
+                    <br>
+
+                    <label>Class</label>
+
+                    <input type="text"
+                           class="form-control"
+                           name="class_name"
+                           required>
+
+                    <br>
+
+                    <label>Section</label>
+
+                    <input type="text"
+                           class="form-control"
+                           name="section"
+                           required>
+
+                    <br>
+
+                    <label>Date Of Birth</label>
+
+                    <input type="date"
+                           class="form-control"
+                           name="dob"
+                           required>
+
+                    <br>
+
+                    <label>Image</label>
+
+                    <input type="file"
+                           class="form-control"
+                           name="image"
+                           required>
+
+                    <br>
+
+                    <div class="form-check">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="status"
+                               checked>
+
+                        <label>Active</label>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-info">
+                        Submit
+                    </button>
+
+                    <button class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.querySelectorAll(".delete-btn").forEach(btn=>{
+
+btn.addEventListener("click",function(){
+
+let id=this.dataset.id;
+
+Swal.fire({
+
+title:"Delete Birthday?",
+
+icon:"warning",
+
+showCancelButton:true,
+
+confirmButtonColor:"#d33",
+
+confirmButtonText:"Delete"
+
+}).then((result)=>{
+
+if(result.isConfirmed){
+
+window.location.href="/birthday/delete/"+id+"/";
+
+}
+
+});
+
+});
+
+});
+
+</script>
+
+{% endblock %}

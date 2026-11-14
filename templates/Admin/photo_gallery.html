@@ -1,0 +1,330 @@
+{% extends "Admin/Base.html" %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire("{{ message }}");
+</script>
+{% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="card card-flush mb-5 shadow" style="padding:15px;">
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <a href="javascript:history.back()">
+                            <i class="fa fa-backward"></i> Back
+                        </a>
+                    </div>
+
+                    <div class="col-lg-6 text-end">
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addGalleryModal">
+                            ADD
+                        </button>
+                    </div>
+
+                </div>
+
+                <h5 class="bg-success text-white p-2 mt-2">
+                    Photo Gallery
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead class="table-dark">
+
+                            <tr>
+
+                                <th>S.No.</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                                <th>Create Date</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for gallery in gallery_list %}
+
+                            <tr>
+
+                                <td>{{ forloop.counter }}</td>
+
+                                <td>{{ gallery.title }}</td>
+
+                                <td>
+
+                                    <img src="{{ gallery.image.url }}" width="100" class="img-thumbnail">
+
+                                </td>
+
+                                <td>
+
+                                    {% if gallery.status %}
+
+                                    <span class="badge bg-success">
+                                        Active
+                                    </span>
+
+                                    {% else %}
+
+                                    <span class="badge bg-danger">
+                                        Inactive
+                                    </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+
+                                    {{ gallery.create_date|date:"d-m-Y H:i" }}
+
+                                </td>
+
+                                <td>
+
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editGallery{{ gallery.id }}">
+
+                                        <i class="fa fa-edit"></i>
+
+                                    </button>
+
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="{{ gallery.id }}">
+
+                                        <i class="fa fa-trash"></i>
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editGallery{{ gallery.id }}">
+
+                                <div class="modal-dialog">
+
+                                    <div class="modal-content">
+
+                                        <form action="{% url 'edit_gallery' gallery.id %}" method="POST"
+                                            enctype="multipart/form-data">
+
+                                            {% csrf_token %}
+
+                                            <div class="modal-header bg-warning">
+
+                                                <h5>Edit Gallery</h5>
+
+                                                <button class="btn-close" data-bs-dismiss="modal"></button>
+
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <label>Title</label>
+
+                                                <input type="text" name="title" class="form-control"
+                                                    value="{{ gallery.title }}" required>
+
+                                                <br>
+
+                                                <label>Image</label>
+
+                                                <input type="file" name="image" class="form-control">
+
+                                                <br>
+
+                                                <img src="{{ gallery.image.url }}" width="120">
+
+                                                <br><br>
+
+                                                <div class="form-check">
+
+                                                    <input type="checkbox" class="form-check-input" name="status" {% if gallery.status %}checked{% endif %}>
+
+                                                    <label>Active</label>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+
+                                                <button class="btn btn-warning">
+
+                                                    Update
+
+                                                </button>
+
+                                                <button class="btn btn-danger" data-bs-dismiss="modal">
+
+                                                    Close
+
+                                                </button>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {% empty %}
+
+                            <tr>
+
+                                <td colspan="6" class="text-center">
+
+                                    No Gallery Found
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Add Gallery Modal -->
+
+<div class="modal fade" id="addGalleryModal">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form action="{% url 'photo_gallery' %}" method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="modal-header bg-success text-white">
+
+                    <h5>Add Gallery</h5>
+
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <label>Title</label>
+
+                    <input type="text" name="title" class="form-control" required>
+
+                    <br>
+
+                    <label>Image</label>
+
+                    <input type="file" name="image" class="form-control" required>
+
+                    <br>
+
+                    <div class="form-check">
+
+                        <input class="form-check-input" type="checkbox" name="status" checked>
+
+                        <label>
+
+                            Active
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-info">
+
+                        Submit
+
+                    </button>
+
+                    <button class="btn btn-danger" data-bs-dismiss="modal">
+
+                        Close
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+
+        btn.addEventListener("click", function () {
+
+            let id = this.dataset.id;
+
+            Swal.fire({
+
+                title: "Delete Gallery?",
+
+                text: "This record will be deleted.",
+
+                icon: "warning",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "#d33",
+
+                confirmButtonText: "Delete"
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    window.location.href = "{% url 'delete_gallery' 0 %}".replace("0", id);
+
+                }
+
+            });
+
+        });
+
+    });
+
+</script>
+
+{% endblock %}

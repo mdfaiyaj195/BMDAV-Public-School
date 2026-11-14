@@ -1,0 +1,200 @@
+{% extends "Admin/Base.html" %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        icon: "success",
+        title: "{{ message }}",
+        showConfirmButton: false,
+        timer: 1500
+    });
+</script>
+{% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Notice Management</h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addNoticeModal">
+                                <i class="fa fa-plus"></i> Add Notice
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Publish Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for notice in notice_list %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ notice.title }}</td>
+                                <td>
+                                    {% if notice.image %}
+                                    <img src="{{ notice.image.url }}" width="100" class="img-thumbnail">
+                                    {% endif %}
+                                </td>
+                                <td>{{ notice.publish_date }}</td>
+                                <td>
+                                    {% if notice.status %}
+                                    <span class="badge bg-success">
+                                        Active
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-danger">
+                                        Inactive
+                                    </span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editNotice{{ notice.id }}">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteNotice('{{ notice.id }}')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editNotice{{ notice.id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{% url 'edit_notice' notice.id %}" method="POST"
+                                            enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-header bg-warning">
+                                                <h5>Edit Notice</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label>Title</label>
+                                                <input type="text" name="title" class="form-control"
+                                                    value="{{ notice.title }}" required>
+                                                <br>
+                                                <label>Image</label>
+                                                <input type="file" name="image" class="form-control">
+                                                <br>
+                                                <img src="{{ notice.image.url }}" width="120">
+                                                <br><br>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="status" {% if notice.status %}checked{% endif %}>
+                                                    <label>
+                                                        Active
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-warning">
+                                                    Update
+                                                </button>
+                                                <button class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    No Notice Found
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Notice Modal -->
+<div class="modal fade" id="addNoticeModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{% url 'add_notice' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-header bg-success text-white">
+                    <h5>Add Notice</h5>
+                </div>
+                <div class="modal-body">
+                    <label>Title</label>
+                    <input type="text" name="title" class="form-control" required>
+                    <br>
+                    <label>Image</label>
+                    <input type="file" name="image" class="form-control" required>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="status" checked>
+                        <label>
+                            Active
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success">
+                        Submit
+                    </button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteNotice(id) {
+
+        Swal.fire({
+
+            title: "Delete Notice?",
+
+            text: "This record will be permanently deleted.",
+
+            icon: "warning",
+
+            showCancelButton: true,
+
+            confirmButtonColor: "#d33",
+
+            confirmButtonText: "Delete"
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                window.location.href = "/delete-notice/" + id + "/";
+
+            }
+
+        });
+
+    }
+
+</script>
+{% endblock %}

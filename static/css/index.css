@@ -1,0 +1,387 @@
+/* ===========================
+   GLOBAL
+=========================== */
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background:#f5f7fb;
+    color:#444;
+}
+
+section{
+    padding:20px 0;
+}
+
+/* ===========================
+   HOME SLIDER
+=========================== */
+
+.slider-img{
+    height:550px;
+    width:100%;
+    object-fit:cover;
+    border-radius:15px 15px 0 0;
+}
+
+.caption{
+    background:linear-gradient(90deg,#0056b3,#0d6efd);
+    color:#fff;
+    padding:18px;
+    text-align:center;
+    font-size:26px;
+    font-weight:600;
+    letter-spacing:1px;
+    border-radius:0 0 15px 15px;
+}
+
+/* ===========================
+   NOTICE BOARD
+=========================== */
+
+.notice-board{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    height:100%;
+}
+
+.notice-title{
+    background:linear-gradient(90deg,#0066cc,#00bcd4);
+    color:#fff;
+    text-align:center;
+    padding:16px;
+    border-radius:10px;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.notice-board ul{
+    list-style:none;
+    padding:0;
+}
+
+.notice-board li{
+    padding:18px;
+    margin-bottom:15px;
+    border-radius:10px;
+    border-left:5px solid #0d6efd;
+    background:#f8f9fa;
+    transition:.3s;
+}
+
+.notice-board li:hover{
+    background:#eef6ff;
+    transform:translateX(5px);
+}
+
+.notice-board span{
+    color:#888;
+    font-size:14px;
+}
+
+.notice-board a{
+    color:#0d6efd;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* ===========================
+   FEATURE BOX
+=========================== */
+
+.feature{
+    border-radius:15px;
+    padding:30px 15px;
+    color:#fff;
+    text-align:center;
+    transition:.4s;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.feature:hover{
+    transform:translateY(-10px);
+    background: #917979;
+}
+
+.feature i{
+    width:75px;
+    height:75px;
+    background:#fff;
+    color:#0d6efd;
+    border-radius:50%;
+    line-height:75px;
+    font-size:32px;
+    margin-bottom:20px;
+    transition:.4s;
+}
+
+.feature:hover i{
+    transform:rotate(360deg);
+}
+
+.feature h4{
+    font-size:22px;
+    font-weight:600;
+}
+
+.red{
+    background:linear-gradient(135deg,#ff5f6d,#ffc371);
+}
+
+.yellow{
+    background:linear-gradient(135deg,#f6d365,#fda085);
+}
+
+.green{
+    background:linear-gradient(135deg,#43cea2,#185a9d);
+}
+
+.pink{
+    background:linear-gradient(135deg,#f857a6,#ff5858);
+}
+
+.darkred{
+    background:linear-gradient(135deg,#c31432,#5b2880);
+}
+
+/* ===========================
+   MESSAGE CARD
+=========================== */
+
+.message-card{
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.4s;
+}
+
+.message-card:hover{
+    transform:translateY(-8px);
+}
+
+.message-card h2{
+    background:linear-gradient(90deg,#2196f3,#4caf50);
+    color:#fff;
+    padding:18px;
+    font-size:30px;
+    text-align:center;
+    margin:0;
+}
+
+.message-card img{
+    width:100%;
+    height:340px;
+    object-fit:cover;
+}
+
+.message-card p{
+    padding:20px;
+    line-height:30px;
+    color:#555;
+}
+
+.message-card .btn{
+    margin:20px;
+    border-radius:30px;
+    padding:10px 30px;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.sidebar-box{
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.sidebar-box h4{
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+/* ===========================
+   INSIDE SCHOOL
+=========================== */
+
+.inside-title{
+    text-align:center;
+    font-size:52px;
+    font-weight:700;
+    color:#0d6efd;
+    margin-bottom:50px;
+}
+
+.inside-card{
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.4s;
+    height:100%;
+    width: 100%;
+}
+
+.inside-card:hover{
+    transform:translateY(-8px);
+}
+
+.inside-card h3{
+    background:linear-gradient(90deg,#2196f3,#4caf50);
+    color:#fff;
+    text-align:center;
+    padding:15px;
+    margin:0;
+    font-size:22px;
+}
+
+.inside-card img{
+    width:100%;
+    height: 250 px;
+    display:block;
+    border-radius:10px 10px 0 0;
+}
+
+.inside-card .d-flex{
+    padding:20px;
+}
+
+.inside-card h4{
+    color:#0d6efd;
+    font-weight:700;
+    padding: 0 5px 0 5px;
+}
+
+.inside-card p{
+    font-size:15px;
+    color:#666;
+    padding: 0 5px 0 5px;
+    line-height:26px;
+}
+
+/* ===========================
+   PHOTO GALLERY
+=========================== */
+
+.gallery-section{
+    background:#f8fbff;
+    border-radius: 15px;
+}
+
+.gallery-title{
+    text-align:center;
+    font-size:52px;
+    color:#0d6efd;
+    margin-bottom:45px;
+    font-weight:700;
+}
+
+.gallery-img{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+    transition:.4s;
+}
+
+.gallery-img:hover{
+    transform:scale(1.05);
+}
+
+/* ===========================
+   HAPPY BIRTHDAY
+=========================== */
+
+.birthday-section{
+    background:linear-gradient(135deg,#ffe6e6,#fff9e6);
+}
+
+.birthday-title{
+    text-align:center;
+    font-size:52px;
+    font-weight:700;
+    color:#d63384;
+    margin-bottom:50px;
+}
+
+.birthday-card{
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+    transition:.4s;
+}
+
+.birthday-card:hover{
+    transform:translateY(-10px);
+}
+
+.birthday-card img{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid #0d6efd;
+    margin:auto;
+}
+
+.birthday-card h5{
+    margin-top:20px;
+    color:#e91e63;
+    font-weight:600;
+}
+
+.birthday-card h4{
+    font-size:24px;
+    font-weight:700;
+    color:#0d6efd;
+}
+
+.birthday-card p{
+    line-height:28px;
+    color:#666;
+}
+
+.birthday-section .carousel,
+.gallery-section .carousel {
+    touch-action: pan-y;
+    -ms-touch-action: pan-y;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn{
+    border-radius:30px;
+    padding:10px 28px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* ===========================
+   NAV PILLS
+=========================== */
+
+.nav-pills .nav-link{
+    border-radius:30px;
+    padding:10px 25px;
+    font-weight:600;
+    color:#555;
+}
+
+.nav-pills .nav-link.active{
+    background:linear-gradient(90deg,#0d6efd,#00bcd4);
+}

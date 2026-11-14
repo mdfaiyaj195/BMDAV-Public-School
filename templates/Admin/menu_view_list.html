@@ -1,0 +1,73 @@
+{% extends "Admin/Base.html" %}
+{% block content %}
+{% load static %}
+
+<!-- SweetAlert messages -->
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        text: "{{ message }}",
+        icon: "{% if message.tags == 'success' %}success{% else %}error{% endif %}"
+    });
+</script>
+{% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-flush mb-5 p-4 shadow">
+                        <div class="row mb-3">
+                            <div class="col-lg-12">
+                                <a href="/add-menu-view/" class="btn btn-info float-end">Add Menu View</a>
+                            </div>
+                        </div>
+
+                        <h5 class="my-2 bg-success text-white p-2">Menu View List</h5>
+
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Menu</th>
+                                    <th>SubMenu</th>
+                                    <th>Page Title</th>
+                                    <th>Page Content</th>
+                                    <th>Create Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for menu in menu_views %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{% if menu.menu %}{{ menu.menu.name }}{% else %}-{% endif %}</td>
+                                    <td>{% if menu.submenu %}{{ menu.submenu.name }}{% else %}-{% endif %}</td>
+                                    
+                                    <td>{{ menu.pagetitle }}</td>
+                                    
+                                    <td>{{ menu.pagecontent|striptags|truncatewords:50 }}</td>
+                                    <td>{{ menu.create_date|date:"Y-m-d H:i:s" }}</td>
+                                    <td>
+                                        <a href="#" class="delete-btn" data-id="{{ menu.id }}">
+                                            <i class="fa fa-trash text-danger" style="font-size:20px;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center">No Menu Views found.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

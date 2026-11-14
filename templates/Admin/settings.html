@@ -1,0 +1,189 @@
+{% extends "Admin/Base.html" %}
+{% load static %}
+{% block head_title %}Account settings · Admin{% endblock %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        icon: "{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% else %}info{% endif %}",
+        title: "{{ message|escapejs }}",
+        timer: 2600,
+        showConfirmButton: false
+    });
+</script>
+{% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Account settings</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="{% url 'admin_index' %}">Overview</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card border shadow-sm h-100">
+                        <div class="card-body p-4 text-center">
+                            <div class="mb-3">
+                                {% if request.session.profile %}
+                                <img src="{{ request.session.profile }}" alt="Profile" width="120" height="120"
+                                    class="rounded-circle border border-2 border-light shadow-sm"
+                                    style="object-fit: cover;">
+                                {% else %}
+                                <div class="w-25 mx-auto">
+                                    <div class="ratio ratio-1x1">
+                                        <div class="rounded-circle bg-soft-primary d-flex align-items-center justify-content-center text-primary">
+                                            <i class="ri-user-3-line display-6"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <h5 class="mb-1 fw-semibold">{{ request.session.name|default:"—" }}</h5>
+                            <p class="text-muted mb-2 small">{{ request.session.email|default:"" }}</p>
+                            <div class="d-flex flex-wrap gap-2 justify-content-center mb-0">
+                                <span class="badge bg-soft-success text-success">{{ request.session.user_type|default:"—" }}</span>
+                                <span class="badge bg-soft-info text-info">Status: {{ request.session.status|default:"—" }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border shadow-sm mt-4">
+                        <div class="card-header border-0 pb-0">
+                            <h5 class="card-title mb-0">
+                                <i class="ri-shield-user-line me-1 align-middle text-primary"></i> Account
+                            </h5>
+                        </div>
+                        <div class="card-body pt-2">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-0 d-flex justify-content-between border-0">
+                                    <span class="text-muted">Role</span>
+                                    <span class="fw-medium">{{ request.session.user_type|default:"—" }}</span>
+                                </li>
+                                <li class="list-group-item px-0 d-flex justify-content-between border-0">
+                                    <span class="text-muted">Status</span>
+                                    <span class="fw-medium">{{ request.session.status|default:"—" }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card border shadow-sm mt-4">
+                        <div class="card-header border-0 pb-0">
+                            <h5 class="card-title mb-0">
+                                <i class="ri-lock-password-line me-1 align-middle text-primary"></i> Security
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted small mb-3">Update your sign-in password. You will use the new password
+                                on the next login.</p>
+                            <button type="button" class="btn btn-soft-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#changePasswordModal">
+                                <i class="ri-key-2-line me-1"></i> Change password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card border shadow-sm">
+                        <div class="card-header align-items-center d-flex border-0">
+                            <h5 class="card-title mb-0 flex-grow-1">
+                                <i class="ri-user-settings-line me-1 align-middle text-primary"></i> Personal information
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-4">Update your contact details and profile photo. Fields marked
+                                in your session are used across the admin panel.</p>
+                            <form method="post" action="{% url 'update_profile' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="settings_name">Name</label>
+                                        <input type="text" id="settings_name" name="name" value="{{ request.session.name|default:'' }}"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="settings_email">Email</label>
+                                        <input type="email" id="settings_email" name="email" value="{{ request.session.email|default:'' }}"
+                                            class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="settings_phone">Phone</label>
+                                        <input type="text" id="settings_phone" name="phone" value="{{ request.session.mobile|default:'' }}"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="settings_company">Company name</label>
+                                        <input type="text" id="settings_company" name="company_name" value="{{ request.session.company_name|default:'' }}"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="settings_address">Address</label>
+                                        <textarea id="settings_address" name="address" class="form-control" rows="3"
+                                            placeholder="Your address">{{ request.session.address|default:'' }}</textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label" for="settings_profile">Profile image</label>
+                                        <input type="file" id="settings_profile" name="profile" class="form-control" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="mt-4 d-flex flex-wrap gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="ri-save-3-line me-1 align-middle"></i> Save changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" action="{% url 'change_password' %}">
+                {% csrf_token %}
+                <div class="modal-header bg-primary border-0">
+                    <h5 class="modal-title text-white" id="changePasswordModalLabel">Change password</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">Enter your new password twice to confirm. Minimum length and strength
+                        rules from your team policy still apply on the application side.</p>
+                    <div class="mb-3">
+                        <label class="form-label" for="new_password">New password</label>
+                        <input type="password" id="new_password" name="new_password" class="form-control" minlength="4"
+                            required autocomplete="new-password" placeholder="New password">
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label" for="confirm_password">Confirm new password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" minlength="4"
+                            required autocomplete="new-password" placeholder="Confirm new password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

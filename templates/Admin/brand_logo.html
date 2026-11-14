@@ -1,0 +1,130 @@
+{% extends "Admin/Base.html" %}
+{% block content %}
+{% load static %}
+
+<!-- Message display using SweetAlert -->
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire("{{ message }}");
+    </script>
+    {% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row gx-5 gx-xl-10">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="card card-flush mb-5" style="padding:10px; box-shadow: 0px 4px 4px gray;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <a href="javascript:history.back()"><i class="fa fa-backward" aria-hidden="true"></i> Back</a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#addBrandLogoModal" class="btn btn-info" style="float: right; margin-right: 20px;">ADD</button>
+                            </div>
+                        </div>
+                        <h5 class="my-2 bg-success text-white p-2">Brand Logo Information</h5>
+
+                        <!-- Brand Logo Table -->
+                        <div class="row pt-2">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Logo</th>
+                                            <th>Favicon</th>
+                                            <th>Create Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for logo in brand_logo %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>
+                                                {% if logo.logo %}
+                                                    <img src="{{ logo.logo.url }}" alt="Logo" width="50">
+                                                {% else %}
+                                                    <span class="text-muted">No logo</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if logo.favicon %}
+                                                    <img src="{{ logo.favicon.url }}" alt="Favicon" width="30">
+                                                {% else %}
+                                                    <span class="text-muted">No favicon</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ logo.create_date}}</td>
+
+                                            <td>
+                                                <a href="#" data-id="{{ logo.id }}" onclick="confirmDelete(this.dataset.id)">
+                                                    <i style="font-size: 20px; color: red;" class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal to Add Brand Logo -->
+                    <div class="modal fade" id="addBrandLogoModal" tabindex="-1" aria-labelledby="addBrandLogoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="{% url 'brand-logo' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="modal-header bg-success">
+                                        <h5 class="modal-title text-white" id="addBrandLogoLabel">Add Brand Logo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="logo" class="form-label">Logo</label>
+                                            <input type="file" id="logo" name="logo" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="favicon" class="form-label">Favicon</label>
+                                            <input type="file" id="favicon" name="favicon" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-info">Submit</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(logoId) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This action cannot be undone!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/brand-logos/delete/" + logoId + "/";
+            }
+        });
+    }
+    </script>
+    
+
+{% endblock %}

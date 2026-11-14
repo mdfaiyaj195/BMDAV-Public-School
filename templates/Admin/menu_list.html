@@ -1,0 +1,132 @@
+{% extends "Admin/Base.html" %}
+{% block content %}
+{% load static %}
+
+<!-- Message display using SweetAlert -->
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire({
+            icon: "{{ message.tags|default:'info' }}",
+            title: "{{ message|escapejs }}",
+            timer: 2200,
+            showConfirmButton: false
+        });
+    </script>
+    {% endfor %}
+{% endif %}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row gx-5 gx-xl-10">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="card card-flush mb-5" style="padding:10px; box-shadow: 0px 4px 4px gray;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <a href="javascript:history.back()">
+                                    <i class="fa fa-backward" aria-hidden="true"></i> Back
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#addMenuModal"
+                                    class="btn btn-info" style="float: right; margin-right: 20px;">ADD</button>
+                            </div>
+                        </div>
+                        <h5 class="my-2 bg-success text-white p-2">Menu Information</h5>
+
+                        <!-- Menu Table -->
+                        <div class="row pt-2">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Sequence</th>
+                                            <th>Menu Name</th>
+                                            <th>Create Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for menu in menu_list %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ menu.sequence }}</td>
+                                            <td>{{ menu.name }}</td>
+                                            <td>{{ menu.create_date|date:"Y-m-d H:i:s" }}</td>
+                                            <td>
+                                                <a href="#" class="delete-btn" data-id="{{ menu.id }}">
+                                                    <i style="font-size: 20px; color: red;" class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal to Add Menu -->
+                    <div class="modal fade" id="addMenuModal" tabindex="-1" aria-labelledby="addMenuLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="{% url 'menu' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="modal-header bg-success">
+                                        <h5 class="modal-title text-white" id="addMenuLabel">Add New Menu</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-12 mb-4">
+                                                <label for="menu_name" class="form-label">Menu Name</label>
+                                                <input type="text" id="menu_name" name="name" class="form-control" required placeholder="Enter menu name">
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-12 mb-4">
+                                                <label for="menu_sequence" class="form-label">Sequence Number</label>
+                                                <input type="number" id="menu_sequence" name="sequence" class="form-control" min="1" value="1" required placeholder="Enter sequence number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-info">Submit</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let menuId = this.getAttribute("data-id");
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/menu/delete/" + menuId + "/";
+                }
+            });
+        });
+    });
+});
+</script>
+
+{% endblock %}

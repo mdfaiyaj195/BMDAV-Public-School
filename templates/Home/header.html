@@ -1,0 +1,308 @@
+{% load static %}
+<header>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="left">
+                <span class="top-bar-item"><i class="fa-solid fa-phone text-success"></i> HelpLine No. : {{ brand.primary_phone }}, {{ brand.secondary_phone }}</span>
+                <span class="top-bar-item"><i class="fa-solid fa-envelope text-success"></i> {{ brand.address }}</span>
+                <span class="top-bar-item"><i class="fa-solid fa-location-dot text-success"></i> {{ brand.email }}</span>
+            </div>
+
+            <div class="right mt-1 me-3 d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary text-black fw-bold d-none d-md-inline-flex" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">
+                    Login
+                </button>
+                <button class="mobile-menu-toggle d-md-none btn btn-outline-light text-black"
+                    type="button" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="main-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center px-4 py-3">
+            <div class="logo-area d-flex align-items-center">
+                <a href="/" class="">
+                    <img src="{{ logo.logo.url }}" alt="logo">
+                </a>
+                <div>
+                    <a href="/" class="text-decoration-none"><h1>{{ brand.brand_name }}</h1></a>
+                    <p>{{ brand.address }}</p>
+                </div>
+            </div>
+
+            <div class="right-logo">
+                <img src="{{ logo.favicon.url }}" alt="g20">
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+                {% for item in menu_list %}
+                <li>
+                    <a href="{% url 'menu_detail' id=item.id %}" class="nav-link">{{ item.name }}</a>
+                    {% if item.submenu_set.all %}
+                    <span class="submenu-toggle d-md-none"><i class="fa-solid fa-chevron-down"></i></span>
+                    <ul>
+                        {% for sub_item in item.submenu_set.all %}
+                        <li><a href="{% url 'submenu_detail' submenu_id=sub_item.id %}"
+                                class="nav-link">{{sub_item.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% empty %}
+                <li>No menu items available</li>
+                {% endfor %}
+            </ul>
+            <div class="mobile-menu-actions d-md-none">
+                <button class="btn btn-light w-100 text-black fw-bold" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">
+                    Login
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Admin login modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content login-modal">
+            <!-- Close Button -->
+            <button type="button" class="btn-close login-close" data-bs-dismiss="modal"></button>
+
+            <div class="row g-0">
+                <!-- ================= LEFT SIDE ================= -->
+                <div class="col-lg-6 login-left">
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+
+                        <!-- Logo -->
+                        <div class="text-center logo-section">
+                            <img src="{{ logo.logo.url }}" class="school-logo" alt="Logo">
+                            <h1 class="school-name">{{ brand.brand_name }}</h1>
+                            <p class="school-tagline">Nurturing Minds, Building Futures</p>
+                        </div>
+
+                        <!-- Welcome -->
+                        <div class="text-center mb-5">
+                            <h2 class="welcome-title">Welcome Back!</h2>
+                            <p class="welcome-subtitle">Sign in to your admin account</p>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="m-4">
+                            <label>Email Address</label>
+                            <div class="input-box">
+                                <i class="fa-solid fa-envelope"></i>
+                                <input type="email" name="email" class="form-control" placeholder="Enter your email"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="m-4">
+                            <label>Password</label>
+                            <div class="input-box">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Enter your password" required>
+                                <span class="eye" id="eyepassword">
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Remember -->
+                        <div class="remember-row m-4">
+                            <div>
+                                <input type="checkbox" id="remember">
+                                <label for="remember" class="mb-0">Remember me</label>
+                            </div>
+                            <a href="#">Forgot Password?</a>
+                        </div>
+
+                        <!-- Login -->
+                        <div class="login-box">
+                            <button type="submit" class="btn login-btn">
+                            <i class="fa-regular fa-user me-2"></i>
+                            Login
+                        </button>
+                        </div>
+
+                        <!-- <div class="divider">
+                            <span>or</span>
+                        </div>
+
+                        <button type="button" class="btn google-btn">
+                            <img src="{% static 'images/google.png' %}" width="24" alt="Google">
+                            Login with Google
+                        </button> -->
+                    </form>
+                </div>
+
+                <!-- ================= RIGHT SIDE ================= -->
+                <div class="col-lg-6 login-right">
+                    <img src="{% static 'images/Login.png' %}" class="login-image" alt="Login illustration">
+                    <div class="login-overlay">
+                        <div class="overlay-card">
+                            <div class="icon-box">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>Empowering students to achieve excellence every day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- otp verify -->
+ <div class="modal fade" id="otpModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content login-modal">
+
+            <!-- Close -->
+            <button type="button"
+                class="btn-close login-close"
+                data-bs-dismiss="modal"></button>
+
+            <div class="row g-0">
+
+                <!-- LEFT -->
+                <div class="col-lg-6 login-left">
+
+                    <form action="{% url 'verify_otp' %}" method="POST">
+                        {% csrf_token %}
+
+                        <!-- Logo -->
+                        <div class="text-center logo-section">
+
+                            <img src="{{ logo.logo.url }}"
+                                class="school-logo">
+
+                            <h1 class="school-name">
+                                {{ brand.brand_name }}
+                            </h1>
+
+                            <p class="school-tagline">
+                                Secure OTP Verification
+                            </p>
+
+                        </div>
+
+                        <!-- Heading -->
+
+                        <div class="text-center mb-5">
+
+                            <h2 class="welcome-title">
+                                Verify OTP
+                            </h2>
+
+                            <p class="welcome-subtitle">
+                                Enter the 6-digit OTP sent to your email
+                            </p>
+
+                        </div>
+
+                        <!-- OTP -->
+
+                        <div class="m-4">
+
+                            <label>Enter OTP</label>
+
+                            <div class="input-box">
+
+                                <i class="fa-solid fa-key"></i>
+
+                                <input type="text"
+                                    maxlength="6"
+                                    name="otp"
+                                    class="form-control"
+                                    placeholder="Enter 6 Digit OTP"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Timer -->
+
+                        <div class="remember-row m-4">
+
+                            <span>
+                                OTP expires in
+                                <strong id="countdown">
+                                    02:00
+                                </strong>
+                            </span>
+
+                            <a href="#">
+                                Resend OTP
+                            </a>
+
+                        </div>
+
+                        <!-- Verify Button -->
+
+                        <div class="login-box">
+
+                            <button class="btn login-btn">
+
+                                <i class="fa-solid fa-check me-2"></i>
+
+                                Verify OTP
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <!-- RIGHT -->
+
+                <div class="col-lg-6 login-right">
+
+                    <img src="{% static 'images/Login.png' %}"
+                        class="login-image">
+
+                    <div class="login-overlay">
+
+                        <div class="overlay-card">
+
+                            <div class="icon-box">
+
+                                <i class="fa-solid fa-envelope-circle-check"></i>
+
+                            </div>
+
+                            <div>
+
+                                Your account is protected with
+                                Email OTP Verification.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
