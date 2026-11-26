@@ -129,13 +129,15 @@ def Logout(request):
 def index(request):
     crousels = Carousel.objects.all().order_by("-id")[:6]
     messages_list = SchoolMessage.objects.all().order_by("-id")
-    notices = Notice.objects.filter(status=True).order_by('-publish_date', '-id')[:5]
+    notices = Notice.objects.filter(status=True, category="notice").order_by('-publish_date', '-id')[:8]
+    news = Notice.objects.filter(status=True, category="news").order_by('-publish_date', '-id')[:5]
     events = Event.objects.filter(status=True).order_by("-id")
     gallerys = PhotoGallery.objects.all()
 
     return render(request, 'Home/index.html', {
         'crousel_list': crousels,
         'notice_list': notices,
+        'news_list': news,
         'messages_list': messages_list,
         'events': events,
         'gallery': gallerys
@@ -344,18 +346,26 @@ def Notice_list(request):
 # Add Notice
 def Add_notice(request):
     if request.method == "POST":
-
-        title = request.POST.get("title", '')
+        title = request.POST.get("title", "").strip()
+        description = request.POST.get("description", "").strip()
+        category = request.POST.get("category", "notice")
         image = request.FILES.get("image")
         status = True if request.POST.get("status") else False
 
-        Notice.objects.create(
-            title=title,
-            image=image,
-            status=status
-        )
+        if len(title) > 255:
+            messages.error(request, "Title must be 255 characters or fewer.")
+        elif category not in dict(Notice.CATEGORY_CHOICES):
+            messages.error(request, "Please select a valid notice category.")
+        else:
+            Notice.objects.create(
+                title=title or None,
+                description=description,
+                category=category,
+                image=image,
+                status=status
+            )
 
-        messages.success(request, "Notice Added Successfully")
+            messages.success(request, "Notice Added Successfully")
 
     return redirect("notice_list")
 
@@ -366,8 +376,19 @@ def Edit_notice(request, id):
     notice = get_object_or_404(Notice, id=id)
 
     if request.method == "POST":
+        title = request.POST.get("title", "").strip()
+        category = request.POST.get("category", "notice")
 
-        notice.title = request.POST.get("title")
+        if len(title) > 255:
+            messages.error(request, "Title must be 255 characters or fewer.")
+            return redirect("notice_list")
+        if category not in dict(Notice.CATEGORY_CHOICES):
+            messages.error(request, "Please select a valid notice category.")
+            return redirect("notice_list")
+
+        notice.title = title or None
+        notice.description = request.POST.get("description", "").strip()
+        notice.category = category
 
         if request.FILES.get("image"):
             notice.image = request.FILES.get("image")

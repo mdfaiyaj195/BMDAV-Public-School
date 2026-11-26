@@ -37,6 +37,8 @@
                             <tr>
                                 <th>S.No.</th>
                                 <th>Title</th>
+                                <th>Category</th>
+                                <th>Description</th>
                                 <th>Image</th>
                                 <th>Publish Date</th>
                                 <th>Status</th>
@@ -48,6 +50,8 @@
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ notice.title }}</td>
+                                <td>{{ notice.get_category_display }}</td>
+                                <td>{{ notice.description|truncatechars:80 }}</td>
                                 <td>
                                     {% if notice.image %}
                                     <img src="{{ notice.image.url }}" width="100" class="img-thumbnail">
@@ -90,13 +94,24 @@
                                             <div class="modal-body">
                                                 <label>Title</label>
                                                 <input type="text" name="title" class="form-control"
-                                                    value="{{ notice.title }}" required>
+                                                    value="{{ notice.title|default_if_none:'' }}" maxlength="255">
+                                                <br>
+                                                <label>Description</label>
+                                                <textarea name="description" class="form-control" rows="4">{{ notice.description }}</textarea>
+                                                <br>
+                                                <label>Category</label>
+                                                <select name="category" class="form-select" required>
+                                                    <option value="notice" {% if notice.category == 'notice' %}selected{% endif %}>Notice</option>
+                                                    <option value="news" {% if notice.category == 'news' %}selected{% endif %}>News</option>
+                                                </select>
                                                 <br>
                                                 <label>Image</label>
                                                 <input type="file" name="image" class="form-control">
                                                 <br>
-                                                <img src="{{ notice.image.url }}" width="120">
+                                                {% if notice.image %}
+                                                <img src="{{ notice.image.url }}" width="120" class="img-thumbnail" alt="Current notice attachment">
                                                 <br><br>
+                                                {% endif %}
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="status" {% if notice.status %}checked{% endif %}>
                                                     <label>
@@ -108,7 +123,7 @@
                                                 <button class="btn btn-warning">
                                                     Update
                                                 </button>
-                                                <button class="btn btn-danger" data-bs-dismiss="modal">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                             </div>
@@ -118,7 +133,7 @@
                             </div>
                             {% empty %}
                             <tr>
-                                <td colspan="6" class="text-center">
+                                <td colspan="8" class="text-center">
                                     No Notice Found
                                 </td>
                             </tr>
@@ -141,11 +156,20 @@
                     <h5>Add Notice</h5>
                 </div>
                 <div class="modal-body">
+                    <label>Category</label>
+                    <select name="category" class="form-select" required>
+                        <option value="notice" selected>Notice</option>
+                        <option value="news">News</option>
+                    </select>
+                    <br>
                     <label>Title</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <input type="text" name="title" class="form-control" maxlength="255" required>
+                    <br>
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="4"></textarea>
                     <br>
                     <label>Image</label>
-                    <input type="file" name="image" class="form-control" required>
+                    <input type="file" name="image" class="form-control">
                     <br>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="status" checked>
@@ -158,7 +182,7 @@
                     <button class="btn btn-success">
                         Submit
                     </button>
-                    <button class="btn btn-danger" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                         Close
                     </button>
                 </div>

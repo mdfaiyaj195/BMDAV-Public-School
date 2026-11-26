@@ -45,13 +45,24 @@ class Carousel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Notice(models.Model):
-    title = models.CharField(max_length=255, blank=True, null=True)
+
+    CATEGORY_CHOICES = [
+        ('notice', 'Notice'),
+        ('news', 'News'),
+    ]
+
+    title = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(default="")
     image = models.FileField(upload_to="notices/", blank=True, null=True)
+    category = models.CharField(max_length=20,choices=CATEGORY_CHOICES,default='notice')
+
     publish_date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title
+        return self.title or ""
+    class Meta:
+        ordering = ['-publish_date']
     
 class SchoolMessage(models.Model):
     name = models.CharField(max_length=150)

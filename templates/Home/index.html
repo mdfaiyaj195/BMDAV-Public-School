@@ -203,26 +203,110 @@
                     </div>
                     <a class="home-text-link" href="{% url 'contact' %}">Contact the school <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
-                <div class="home-notice-list">
-                    {% for notice in notice_list %}
-                    <article class="home-notice-card">
-                        <span class="home-notice-icon"><i class="fa-regular fa-bell" aria-hidden="true"></i></span>
-                        <div class="home-notice-copy">
-                            <span>{{ notice.publish_date|date:"d M Y" }}</span>
-                            <h3>{{ notice.title }}</h3>
+                <div class="home-news-board">
+                    <section class="home-news-panel" aria-labelledby="home-news-title">
+                        <div class="home-news-panel-heading">
+                            <span class="home-section-label">SCHOOL UPDATES</span>
+                            <h3 id="home-news-title">News</h3>
                         </div>
-                        {% if notice.image %}
-                        <a class="home-notice-link" href="{% url 'download_notice' notice.id %}" aria-label="Download {{ notice.title }}">
-                            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
-                        </a>
-                        {% endif %}
-                    </article>
-                    {% empty %}
-                    <div class="home-empty-state">
-                        <i class="fa-regular fa-bell" aria-hidden="true"></i>
-                        <p>There are no new notices at the moment. Please contact the school office for assistance.</p>
-                    </div>
-                    {% endfor %}
+                        <div class="home-news-viewport" role="region" aria-label="Latest school news" tabindex="0">
+                            {% if news_list %}
+                            <div class="home-news-track">
+                                <div class="home-news-list">
+                                    {% for news in news_list %}
+                                    <article class="home-news-card">
+                                        <span class="home-notice-icon"><i class="fa-regular fa-newspaper" aria-hidden="true"></i></span>
+                                        <div class="home-notice-copy">
+                                            <time datetime="{{ news.publish_date|date:'Y-m-d' }}">{{ news.publish_date|date:"d M Y" }}</time>
+                                            <h4>{{ news.title|default:"School news" }}</h4>
+                                            {% if news.description %}<p>{{ news.description|truncatewords:22 }}</p>{% endif %}
+                                        </div>
+                                        {% if news.image %}
+                                        <a class="home-notice-link" href="{% url 'download_notice' news.id %}" aria-label="Download {{ news.title|default:'news attachment' }}">
+                                            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                                        </a>
+                                        {% endif %}
+                                    </article>
+                                    {% endfor %}
+                                </div>
+                                <div class="home-news-list" aria-hidden="true">
+                                    {% for news in news_list %}
+                                    <article class="home-news-card">
+                                        <span class="home-notice-icon"><i class="fa-regular fa-newspaper" aria-hidden="true"></i></span>
+                                        <div class="home-notice-copy">
+                                            <time>{{ news.publish_date|date:"d M Y" }}</time>
+                                            <h4>{{ news.title|default:"School news" }}</h4>
+                                            {% if news.description %}<p>{{ news.description|truncatewords:22 }}</p>{% endif %}
+                                        </div>
+                                        {% if news.image %}
+                                        <a class="home-notice-link" href="{% url 'download_notice' news.id %}" tabindex="-1">
+                                            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                                        </a>
+                                        {% endif %}
+                                    </article>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="home-empty-state">
+                                <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+                                <p>There are no news updates at the moment.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </section>
+
+                    <section class="home-news-panel home-notification-panel" aria-labelledby="home-notification-title">
+                        <div class="home-news-panel-heading">
+                            <span class="home-section-label">IMPORTANT UPDATES</span>
+                            <h3 id="home-notification-title">Notifications</h3>
+                        </div>
+                        <div class="home-notification-viewport" role="region" aria-label="School notifications" tabindex="0">
+                            {% if notice_list %}
+                            <div class="home-notification-track">
+                                <div class="home-notification-group">
+                                    {% for notice in notice_list %}
+                                    <article class="home-notice-card">
+                                        <span class="home-notice-icon"><i class="fa-regular fa-bell" aria-hidden="true"></i></span>
+                                        <div class="home-notice-copy">
+                                            <time datetime="{{ notice.publish_date|date:'Y-m-d' }}">{{ notice.publish_date|date:"d M Y" }}</time>
+                                            <h4>{{ notice.title|default:"School notice" }}</h4>
+                                            {% if notice.description %}<p>{{ notice.description|truncatewords:18 }}</p>{% endif %}
+                                        </div>
+                                        {% if notice.image %}
+                                        <a class="home-notice-link" href="{% url 'download_notice' notice.id %}" aria-label="Download {{ notice.title|default:'notice attachment' }}">
+                                            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                                        </a>
+                                        {% endif %}
+                                    </article>
+                                    {% endfor %}
+                                </div>
+                                <div class="home-notification-group" aria-hidden="true">
+                                    {% for notice in notice_list %}
+                                    <article class="home-notice-card">
+                                        <span class="home-notice-icon"><i class="fa-regular fa-bell" aria-hidden="true"></i></span>
+                                        <div class="home-notice-copy">
+                                            <time>{{ notice.publish_date|date:"d M Y" }}</time>
+                                            <h4>{{ notice.title|default:"School notice" }}</h4>
+                                            {% if notice.description %}<p>{{ notice.description|truncatewords:18 }}</p>{% endif %}
+                                        </div>
+                                        {% if notice.image %}
+                                        <a class="home-notice-link" href="{% url 'download_notice' notice.id %}" tabindex="-1">
+                                            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                                        </a>
+                                        {% endif %}
+                                    </article>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="home-empty-state">
+                                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                                <p>There are no new notices at the moment. Please contact the school office for assistance.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>

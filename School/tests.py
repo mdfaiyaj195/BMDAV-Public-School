@@ -100,12 +100,21 @@ class LoginViewTests(TestCase):
             publish_date=date.today(),
             status=True,
         )
+        news = Notice.objects.create(
+            title='School News',
+            description='A school update for families.',
+            category='news',
+            status=True,
+        )
 
         response = self.client.get(reverse('index'))
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Exam Notice')
+        self.assertContains(response, 'School News')
         self.assertContains(response, reverse('download_notice', args=[notice.id]))
+        self.assertEqual(list(response.context['notice_list']), [notice])
+        self.assertEqual(list(response.context['news_list']), [news])
 
     def test_notice_download_returns_file(self):
         notice = Notice.objects.create(
@@ -158,3 +167,38 @@ class ContactEnquiryViewTests(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertContains(response, "Please enter a valid email address.", status_code=400)
         mocked_send_mail.assert_not_called()
+
+
+class NoticeManagementViewTests(TestCase):
+    def test_add_notice_saves_description_and_category_without_an_image(self):
+        response = self.client.post(reverse("add_notice"), {
+            "title": "School update",
+            "description": "Information for families.",
+            "category": "news",
+            "status": "on",
+        })
+
+        self.assertRedirects(response, reverse("notice_list"))
+        notice = Notice.objects.get()
+        self.assertEqual(notice.title, "School update")
+        self.assertEqual(notice.description, "Information for families.")
+        self.assertEqual(notice.category, "news")
+        self.assertFalse(notice.image)
+        self.assertTrue(notice.status)
+
+    def test_edit_notice_updates_description_and_category(self):
+        notice = Notice.objects.create(title="Old title")
+
+        response = self.client.post(reverse("edit_notice", args=[notice.id]), {
+            "title": "Updated title",
+            "description": "Updated description.",
+            "category": "news",
+            "status": "on",
+        })
+
+        self.assertRedirects(response, reverse("notice_list"))
+        notice.refresh_from_db()
+        self.assertEqual(notice.title, "Updated title")
+        self.assertEqual(notice.description, "Updated description.")
+        self.assertEqual(notice.category, "news")
+        self.assertTrue(notice.status)

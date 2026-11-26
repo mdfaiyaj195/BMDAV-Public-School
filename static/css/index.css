@@ -1532,20 +1532,115 @@ section{
     margin-bottom: 0;
 }
 
-.home-notice-list{
+.home-news-board{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.home-news-panel{
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid rgba(16, 42, 67, .08);
+    background: var(--school-white);
+    box-shadow: 0 12px 30px rgba(16, 42, 67, .06);
+}
+
+.home-news-panel-heading{
+    margin-bottom: 18px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid rgba(16, 42, 67, .1);
+}
+
+.home-news-panel-heading .home-section-label{
+    font-size: .68rem;
+}
+
+.home-news-panel-heading h3{
+    margin: 5px 0 0;
+    color: var(--school-navy);
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.home-news-list{
+    display: grid;
+    gap: 12px;
+}
+
+.home-news-card{
+    display: flex;
+    min-width: 0;
+    align-items: flex-start;
     gap: 14px;
+    padding: 16px;
+    border: 1px solid rgba(16, 42, 67, .08);
+    background: #FBFCFE;
+}
+
+.home-news-card .home-notice-icon{
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+}
+
+.home-news-card .home-notice-copy p,
+.home-notice-copy p{
+    margin: 7px 0 0;
+    color: var(--school-muted);
+    font-size: .82rem;
+    line-height: 1.55;
+}
+
+.home-news-card .home-notice-copy h4,
+.home-notice-card .home-notice-copy h4{
+    margin: 5px 0 0;
+    color: var(--school-navy);
+    font-size: .94rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.home-news-viewport,
+.home-notification-viewport{
+    height: 470px;
+    overflow: hidden;
+    outline-offset: 3px;
+}
+
+.home-news-track,
+.home-notification-track{
+    animation: home-notification-scroll 28s linear infinite;
+}
+
+.home-news-list,
+.home-notification-group{
+    display: grid;
+    gap: 12px;
+    padding-bottom: 12px;
+}
+
+.home-news-viewport:hover .home-news-track,
+.home-news-viewport:focus-within .home-news-track,
+.home-notification-viewport:hover .home-notification-track,
+.home-notification-viewport:focus-within .home-notification-track{
+    animation-play-state: paused;
+}
+
+@keyframes home-notification-scroll{
+    to{
+        transform: translateY(-50%);
+    }
 }
 
 .home-notice-card{
     display: flex;
     min-width: 0;
-    align-items: center;
-    gap: 16px;
-    padding: 20px;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
     border: 1px solid rgba(16, 42, 67, .08);
-    background: var(--school-white);
+    background: #FBFCFE;
 }
 
 .home-notice-icon{
@@ -1578,6 +1673,17 @@ section{
     font-size: .94rem;
     font-weight: 700;
     text-overflow: ellipsis;
+}
+
+.home-notice-copy h4{
+    overflow-wrap: anywhere;
+}
+
+.home-notice-copy time{
+    color: var(--school-royal);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .05em;
 }
 
 .home-notice-link{
@@ -1991,7 +2097,7 @@ a.home-contact-item:hover{
         align-items: flex-start;
     }
 
-    .home-notice-list{
+    .home-news-board{
         grid-template-columns: 1fr;
     }
 
@@ -2103,6 +2209,15 @@ a.home-contact-item:hover{
         padding: 14px 12px;
     }
 
+    .home-news-panel{
+        padding: 18px;
+    }
+
+    .home-news-viewport,
+    .home-notification-viewport{
+        height: 400px;
+    }
+
     .home-notice-icon{
         width: 40px;
         height: 40px;
@@ -2162,6 +2277,21 @@ a.home-contact-item:hover{
 }
 
 @media (prefers-reduced-motion: reduce){
+    .home-news-viewport,
+    .home-notification-viewport{
+        overflow-y: auto;
+    }
+
+    .home-news-track,
+    .home-notification-track{
+        animation: none;
+    }
+
+    .home-news-list[aria-hidden="true"],
+    .home-notification-group[aria-hidden="true"]{
+        display: none;
+    }
+
     .home-page *,
     .home-page *::before,
     .home-page *::after{
