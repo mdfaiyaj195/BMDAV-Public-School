@@ -1,560 +1,341 @@
 {% extends 'Home/Base.html' %}
 {% load static %}
 
-{% block title %}
-Home
-{% endblock title %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<section class="container-fluid">
-    <div class="row">
-
-        <!-- Slider -->
-        <div class="col-lg-8">
-
-            <div id="schoolSlider" class="carousel slide" data-bs-ride="carousel">
-
-                <div class="carousel-inner">
-                    {% for crousel in crousel_list %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ crousel.image.url }}" class="d-block w-100 slider-img" alt="{{ crousel.title }}">
-                        <div class="caption">
-                            {{ crousel.title }}
-                        </div>  
-                    </div>
-                    {% endfor %}
+<div class="home-page">
+    <section class="bm-collage-hero" aria-label="Life at B.M. DAV Public School">
+        <div class="bm-photo-track">
+            {% if crousel_list %}
+            <div class="bm-photo-set">
+                {% for crousel in crousel_list %}
+                <div class="bm-photo-item">
+                    <img src="{{ crousel.image.url }}" alt="{{ crousel.title|default:'School life' }}">
                 </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#schoolSlider" data-bs-slide="prev">
-
-                    <span class="carousel-control-prev-icon"></span>
-
-                </button>
-
-                <button class="carousel-control-next" type="button" data-bs-target="#schoolSlider" data-bs-slide="next">
-
-                    <span class="carousel-control-next-icon"></span>
- 
-                </button>
-
+                {% endfor %}
             </div>
-
-        </div>
-
-        <!-- Notice Board -->
-
-        <div class="col-lg-4">
-
-            <div class="notice-board">
-
-                <div class="notice-title">
-                    NOTICE BOARD
+            <div class="bm-photo-set" aria-hidden="true">
+                {% for crousel in crousel_list %}
+                <div class="bm-photo-item">
+                    <img src="{{ crousel.image.url }}" alt="">
                 </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="bm-photo-set">
+                <div class="bm-photo-item"><img src="/media/crousel/istockphoto-1516276543-612x612.jpg" alt="School life"></div>
+                <div class="bm-photo-item"><img src="/media/crousel/outdoor-event-view-stage-image-orientation-horizontal-there-copy-space-30856948.webp" alt="School gathering"></div>
+                <div class="bm-photo-item"><img src="/media/crousel/istockphoto-2122148349-612x612.jpg" alt="Learning in action"></div>
+            </div>
+            <div class="bm-photo-set" aria-hidden="true">
+                <div class="bm-photo-item"><img src="/media/crousel/istockphoto-1516276543-612x612.jpg" alt=""></div>
+                <div class="bm-photo-item"><img src="/media/crousel/outdoor-event-view-stage-image-orientation-horizontal-there-copy-space-30856948.webp" alt=""></div>
+                <div class="bm-photo-item"><img src="/media/crousel/istockphoto-2122148349-612x612.jpg" alt=""></div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
 
-                <ul class="list-unstyled">
-                    {% if notice_list %}
-                    {% for notice in notice_list %}
-                    <li class="mb-3">
-                        {{ notice.title }}
-                        <br>
-                        <span>{{ notice.publish_date }}</span>
-                        |
-                        <a href="{% url 'download_notice' notice.id %}" class="text-decoration-none">Download</a>
-                    </li>
-                    {% endfor %}
+    <section class="home-welcome-strip" aria-label="School welcome">
+        <div class="home-container home-welcome-inner">
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+            <p><strong>Welcome to our school.</strong> A community dedicated to helping every learner find their potential.</p>
+            <a href="#about">Get to know us <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+    <main>
+        <section class="home-section" id="school-intro">
+            <div class="home-container home-intro-grid">
+                <div class="home-intro-visual">
+                    {% if crousel_list %}
+                    <img src="{{ crousel_list.0.image.url }}" alt="Students and staff at a school celebration">
                     {% else %}
-                    <li>No notices available.</li>
+                    <img src="/media/crousel/istockphoto-1516276543-612x612.jpg" alt="Students and staff at a school celebration">
                     {% endif %}
-                </ul>
-
-                <button class="btn btn-primary w-100">
-                    Please click here to download notices
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="container">
-    <!-- Bottom Cards -->
-
-    <div class="row mt-4 g-4">
-
-        <div class="col-lg col-md-4 col-6">
-            <div class="feature red">
-                <a href="#" class="nav-link"></a>
-                <i class="fa-solid fa-bell"></i>
-                <h5>P.T.M</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg col-md-4 col-6">
-            <div class="feature yellow">
-                <a href="#" class="nav-link"></a>
-                <i class="fa-solid fa-wallet"></i>
-                <h5>Pay Online Fees</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg col-md-4 col-6">
-            <div class="feature green">
-                <a href="#" class="nav-link">
-                    <i class="fa-solid fa-desktop"></i>
-                    <h5>Transfer Certificate</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg col-md-6 col-6">
-            <div class="feature pink">
-                <a href="#" class="nav-link"></a>
-                <i class="fa-solid fa-file-lines"></i>
-                <h5>Admission Info</h5>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg col-md-6 col-6">
-            <div class="feature darkred">
-                <a href="#" class="nav-link"></a>
-                <i class="fa-solid fa-pen"></i>
-                <h5>Admission Form</h5>
-                </a>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section class="container">
-
-    <div class="row">
-
-        <!-- School Message  -->
-        {% for message in messages_list %}
-        <div class="col-lg-6">
-
-            <div class="message-card" style="border: 1px solid rgb(218, 210, 210);">
-
-                <h2>{{ message.name }}</h2>
-
-                <img src="{{ message.image.url }}" class="img-fluid">
-
-                <p>
-                    {{ message.message }}
-                </p>
-
-                <a href="{{ message.link }}" class="btn btn-primary">
-                    READ MORE
-                </a>
-
-            </div>
-
-        </div>
-        {% endfor %}
-    </div>
-
-</section>
-
-<!-- INSIDE SCHOOL -->
-<section class="container pb-5">
-
-    <h1 class="inside-title text-center mb-4">
-        INSIDE SCHOOL
-    </h1>
-
-    <!-- Tabs -->
-    <ul class="nav nav-pills justify-content-center mb-4" id="insideTab">
-
-        <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#events">
-                EVENTS
-            </button>
-        </li>
-
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#achievements">
-                ACHIEVEMENTS
-            </button>
-        </li>
-
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#awareness">
-                SOCIAL AWARENESS
-            </button>
-        </li>
-
-    </ul>
-
-    <div class="tab-content">
-
-        <!-- Events -->
-        <div class="tab-pane fade show active" id="events">
-
-            <div class="row">
-
-                {% for event in events %}
-
-                <div class="col-lg-4 mb-4">
-
-                    <div class="inside-card" style="border: 1px solid rgb(218, 210, 210);">
-
-                        <img src="{{ event.image.url }}" class="img-fluid mb-3">
-
-                        <h4>{{ event.title }}</h4>
-
-                        <p>
-                            {{ event.description|truncatewords:20 }}
-                        </p>
-
-                        <a href="{{ event.read_more_link }}" class="btn btn-success ms-1 mb-1">
-
-                            Read More
-
-                        </a>
-
+                    <div class="home-image-caption">
+                        <span class="home-caption-mark"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                        <span><strong>Learning beyond the classroom</strong><small>Growing together, every day</small></span>
                     </div>
-
                 </div>
-
-                {% empty %}
-
-                <h5 class="text-center">
-                    No Events Found
-                </h5>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-        <!-- Achievements -->
-
-        <div class="tab-pane fade" id="achievements">
-
-            <div class="row">
-
-                {% for achievement in achievements %}
-
-                <div class="col-lg-4 mb-4">
-
-                    <div class="inside-card" style="border: 1px solid rgb(218, 210, 210);">
-
-                        <img src="{{ achievement.image.url }}" class="img-fluid mb-3">
-
-                        <h4>{{ achievement.title }}</h4>
-
-                        <p>
-
-                            {{ achievement.description|truncatewords:20 }}
-
-                        </p>
-
-                        <a href="{{ achievement.read_more_link }}" class="btn btn-success ms-1 mb-1">
-
-                            Read More
-
-                        </a>
-
-                    </div>
-
+                <div class="home-intro-copy" id="about">
+                    <span class="home-section-label">ABOUT OUR SCHOOL</span>
+                    <h2>Education that helps every learner <em>thrive.</em></h2>
+                    <p>B.M. DAV Public School is a place to learn, discover and build lasting confidence. We believe education is about more than lessons: it is about nurturing thoughtful, capable and compassionate people.</p>
+                    <p>With a supportive school community and a commitment to well-rounded growth, we encourage every student to approach the future with curiosity and courage.</p>
+                    <a class="home-text-link" href="#vision-mission">Our vision and mission <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
-
-                {% empty %}
-
-                <h5 class="text-center">
-                    No Achievement Found
-                </h5>
-
-                {% endfor %}
-
             </div>
+        </section>
 
-        </div>
-
-        <!-- Social Awareness -->
-
-        <div class="tab-pane fade" id="awareness">
-
-            <div class="row">
-
-                {% for item in awareness %}
-
-                <div class="col-lg-4 mb-4">
-
-                    <div class="inside-card" style="border: 1px solid rgb(218, 210, 210);">
-
-                        <img src="{{ item.image.url }}" class="img-fluid mb-3">
-
-                        <h4>{{ item.title }}</h4>
-
-                        <p>
-
-                            {{ item.description|truncatewords:20 }}
-
-                        </p>
-
-                        <a href="{{ item.read_more_link }}" class="btn btn-success ms-1 mb-1">
-
-                            Read More
-
-                        </a>
-
-                    </div>
-
+        <section class="home-values-section" id="vision-mission">
+            <div class="home-container">
+                <div class="home-section-heading home-section-heading-light">
+                    <span class="home-section-label">WHAT GUIDES US</span>
+                    <h2>Our vision &amp; mission</h2>
+                    <p>Shared values shape how we learn, lead and care for one another.</p>
                 </div>
-
-                {% empty %}
-
-                <h5 class="text-center">
-                    No Social Awareness Found
-                </h5>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- Birthday Section -->
-<section class="birthday-section py-5">
-
-    <div class="container">
-
-        <h1 class="text-center birthday-title">
-            HAPPY BIRTHDAY
-        </h1>
-
-        {% if birthday_groups %}
-        <div id="birthdaySliderDesktop" class="carousel slide d-none d-lg-block" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="2500"
-            data-bs-pause="false">
-
-            <div class="carousel-indicators">
-                {% for group in birthday_groups %}
-                <button type="button" data-bs-target="#birthdaySliderDesktop" data-bs-slide-to="{{ forloop.counter0 }}"
-                    class="{% if forloop.first %}active{% endif %}"
-                    aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-                    aria-label="Slide {{ forloop.counter }}">
-                </button>
-                {% endfor %}
-            </div>
-
-            <div class="carousel-inner">
-
-                {% for group in birthday_groups %}
-
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-
-                    <div class="row g-4 justify-content-center">
-
-                        {% for birthday in group %}
-
-                        <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-
-                            <div class="birthday-card text-center w-100">
-
-                                {% if birthday.image %}
-                                <img src="{{ birthday.image.url }}" class="img-fluid rounded-circle"
-                                    alt="{{ birthday.student_name }}">
-                                {% else %}
-                                <div
-                                    class="birthday-avatar-placeholder rounded-circle d-flex align-items-center justify-content-center">
-                                    🎂
-                                </div>
-                                {% endif %}
-
-                                <h5 class="mt-3">
-                                    {{ birthday.dob|date:"d M" }}
-                                </h5>
-
-                                <h4>
-                                    {{ birthday.student_name }}
-                                </h4>
-
-                                <p>
-                                    {{ birthday.father_name }}<br>
-                                    Class : {{ birthday.class_name }}<br>
-                                    Section : {{ birthday.section }}
-                                </p>
-
-                            </div>
-
+                <div class="home-values-grid">
+                    <article class="home-value-card">
+                        <span class="home-value-icon"><i class="fa-solid fa-eye" aria-hidden="true"></i></span>
+                        <div>
+                            <span class="home-card-kicker">OUR VISION</span>
+                            <h3>Inspiring potential</h3>
+                            <p>To empower every learner with the knowledge, confidence and values to contribute positively to the world.</p>
                         </div>
-
-                        {% endfor %}
-
-                    </div>
-
+                    </article>
+                    <article class="home-value-card">
+                        <span class="home-value-icon"><i class="fa-solid fa-compass" aria-hidden="true"></i></span>
+                        <div>
+                            <span class="home-card-kicker">OUR MISSION</span>
+                            <h3>Learning with purpose</h3>
+                            <p>To provide a caring, engaging environment where curiosity, integrity and a love of learning can flourish.</p>
+                        </div>
+                    </article>
                 </div>
-
-                {% endfor %}
-
             </div>
+        </section>
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#birthdaySliderDesktop" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"
-                    style="background-color:#0d6efd; border-radius:50%; padding:20px;" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#birthdaySliderDesktop" data-bs-slide="next">
-                <span class="carousel-control-next-icon"
-                    style="background-color:#0d6efd; border-radius:50%; padding:20px;" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-
-        </div>
-
-        <div id="birthdaySliderMobile" class="carousel slide d-lg-none" data-bs-ride="carousel" data-bs-touch="true" data-bs-interval="2500"
-            data-bs-pause="false">
-
-            <div class="carousel-indicators">
-                {% for birthday in birthdays %}
-                <button type="button" data-bs-target="#birthdaySliderMobile" data-bs-slide-to="{{ forloop.counter0 }}"
-                    class="{% if forloop.first %}active{% endif %}"
-                    aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-                    aria-label="Slide {{ forloop.counter }}">
-                </button>
-                {% endfor %}
-            </div>
-
-            <div class="carousel-inner">
-
-                {% for birthday in birthdays %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="row g-4 justify-content-center">
-                        <div class="col-12 d-flex justify-content-center">
-                            <div class="birthday-card text-center w-100">
-
-                                {% if birthday.image %}
-                                <img src="{{ birthday.image.url }}" class="img-fluid rounded-circle"
-                                    alt="{{ birthday.student_name }}">
-                                {% else %}
-                                <div class="birthday-avatar-placeholder rounded-circle d-flex align-items-center justify-content-center">
-                                    🎂
-                                </div>
-                                {% endif %}
-
-                                <h5 class="mt-3">
-                                    {{ birthday.dob|date:"d M" }}
-                                </h5>
-
-                                <h4>
-                                    {{ birthday.student_name }}
-                                </h4>
-
-                                <p>
-                                    {{ birthday.father_name }}<br>
-                                    Class : {{ birthday.class_name }}<br>
-                                    Section : {{ birthday.section }}
-                                </p>
-
-                            </div>
+        {% if messages_list %}
+        <section class="home-section home-principal-section" aria-label="Messages from school leadership">
+            {% for message in messages_list %}
+            <div class="home-container">
+                <article class="home-principal-card">
+                    <div class="home-principal-photo">
+                        <img src="{{ message.image.url }}" alt="{{ message.name }}">
+                        <span class="home-photo-corner" aria-hidden="true"></span>
+                    </div>
+                    <div class="home-principal-copy">
+                        <span class="home-section-label">A MESSAGE FROM OUR SCHOOL</span>
+                        <h2>{{ message.name }}</h2>
+                        <span class="home-quote-mark" aria-hidden="true">“</span>
+                        <p class="home-principal-message">{{ message.message|truncatewords:70 }}</p>
+                        <div class="home-principal-signoff">
+                            <strong>{{ message.name }}</strong>
+                            <span>School Leadership</span>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-
+                </article>
             </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#birthdaySliderMobile" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"
-                    style="background-color:#0d6efd; border-radius:50%; padding:20px;" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#birthdaySliderMobile" data-bs-slide="next">
-                <span class="carousel-control-next-icon"
-                    style="background-color:#0d6efd; border-radius:50%; padding:20px;" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-
-        </div>
-        {% else %}
-        <div class="text-center text-white py-3">
-            No birthday record found.
-        </div>
+            {% endfor %}
+        </section>
         {% endif %}
 
-    </div>
-
-</section>
-
-<!-- Photo Gallery -->
-<section class="gallery-section py-5">
-
-    <div class="container">
-
-        <h1 class="gallery-title">
-            PHOTO GALLERY
-        </h1>
-
-        {% if gallery %}
-        <div id="gallerySlider"
-             class="carousel slide"
-             data-bs-ride="carousel"
-             data-bs-interval="2500"
-             data-bs-pause="false">
-
-            <div class="carousel-indicators">
-                {% for photo in gallery %}
-                <button type="button"
-                        data-bs-target="#gallerySlider"
-                        data-bs-slide-to="{{ forloop.counter0 }}"
-                        class="{% if forloop.first %}active{% endif %}"
-                        aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-                        aria-label="Slide {{ forloop.counter }}">
-                </button>
-                {% endfor %}
+        <section class="home-section home-academics-section" id="academics">
+            <div class="home-container">
+                <div class="home-section-heading">
+                    <span class="home-section-label">A WELL-ROUNDED JOURNEY</span>
+                    <h2>Learning for life</h2>
+                    <p>We make space for strong foundations, fresh ideas and personal growth.</p>
+                </div>
+                <div class="home-academics-grid">
+                    <article class="home-academic-card">
+                        <span class="home-academic-number">01</span>
+                        <span class="home-academic-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+                        <h3>Strong foundations</h3>
+                        <p>Build understanding, ask questions and develop the skills to take on new challenges.</p>
+                    </article>
+                    <article class="home-academic-card">
+                        <span class="home-academic-number">02</span>
+                        <span class="home-academic-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
+                        <h3>Curiosity &amp; creativity</h3>
+                        <p>Connect ideas through exploration, collaboration and creative expression.</p>
+                    </article>
+                    <article class="home-academic-card">
+                        <span class="home-academic-number">03</span>
+                        <span class="home-academic-icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></span>
+                        <h3>Character &amp; confidence</h3>
+                        <p>Practise respect, responsibility and resilience in a supportive community.</p>
+                    </article>
+                </div>
             </div>
+        </section>
 
-            <div class="carousel-inner">
+        <section class="home-facilities-section" id="facilities">
+            <div class="home-container home-facilities-grid">
+                <div class="home-facilities-intro">
+                    <span class="home-section-label">THE SCHOOL EXPERIENCE</span>
+                    <h2>Room to learn.<br>Space to grow.</h2>
+                    <p>Every part of school life can inspire a new interest, a new skill or a new connection.</p>
+                    <a class="home-text-link" href="#gallery">See school life <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <div class="home-facility-list">
+                    <article class="home-facility-item">
+                        <span><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></span>
+                        <div><h3>Learning spaces</h3><p>Welcoming classrooms for focused learning and collaboration.</p></div>
+                    </article>
+                    <article class="home-facility-item">
+                        <span><i class="fa-solid fa-flask" aria-hidden="true"></i></span>
+                        <div><h3>Discovery &amp; exploration</h3><p>Opportunities to explore ideas through practical learning.</p></div>
+                    </article>
+                    <article class="home-facility-item">
+                        <span><i class="fa-solid fa-book" aria-hidden="true"></i></span>
+                        <div><h3>Reading &amp; research</h3><p>Encouraging students to read widely and follow their questions.</p></div>
+                    </article>
+                    <article class="home-facility-item">
+                        <span><i class="fa-solid fa-person-running" aria-hidden="true"></i></span>
+                        <div><h3>Sports &amp; wellbeing</h3><p>Building teamwork, confidence and healthy habits through activity.</p></div>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-                {% for photo in gallery %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="gallery-slide-wrapper">
-                        <img src="{{ photo.image.url }}"
-                             class="d-block w-100 gallery-img"
-                             alt="Photo Gallery Image">
+        <section class="home-admission-banner" id="admissions">
+            <div class="home-container home-admission-inner">
+                <div>
+                    <span class="home-section-label">YOUR NEXT STEP STARTS HERE</span>
+                    <h2>Let’s make their next chapter a great one.</h2>
+                    <p>Talk to our team about admissions and find out more about life at B.M. DAV Public School.</p>
+                </div>
+                <a class="home-button home-button-gold" href="{% url 'admissions' %}">
+                    Enquire about admission <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </section>
+
+        <section class="home-section home-news-section" id="notices">
+            <div class="home-container">
+                <div class="home-section-heading home-section-heading-row">
+                    <div>
+                        <span class="home-section-label">STAY UP TO DATE</span>
+                        <h2>Latest news &amp; notices</h2>
                     </div>
+                    <a class="home-text-link" href="{% url 'contact' %}">Contact the school <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
-                {% endfor %}
-
+                <div class="home-notice-list">
+                    {% for notice in notice_list %}
+                    <article class="home-notice-card">
+                        <span class="home-notice-icon"><i class="fa-regular fa-bell" aria-hidden="true"></i></span>
+                        <div class="home-notice-copy">
+                            <span>{{ notice.publish_date|date:"d M Y" }}</span>
+                            <h3>{{ notice.title }}</h3>
+                        </div>
+                        {% if notice.image %}
+                        <a class="home-notice-link" href="{% url 'download_notice' notice.id %}" aria-label="Download {{ notice.title }}">
+                            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                        </a>
+                        {% endif %}
+                    </article>
+                    {% empty %}
+                    <div class="home-empty-state">
+                        <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                        <p>There are no new notices at the moment. Please contact the school office for assistance.</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
+        </section>
 
-            <button class="carousel-control-prev"
-                    type="button"
-                    data-bs-target="#gallerySlider"
-                    data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" style="background-color:#fd0d0d; border-radius:50%; padding:20px;" aria-hidden="true"></span>
-            </button>
+        <section class="home-section home-events-section" id="events">
+            <div class="home-container">
+                <div class="home-section-heading">
+                    <span class="home-section-label">LEARNING IN ACTION</span>
+                    <h2>Events &amp; activities</h2>
+                    <p>Shared experiences help students discover their strengths and make lasting memories.</p>
+                </div>
+                <div class="home-events-grid">
+                    {% for event in events %}
+                    <article class="home-event-card">
+                        <div class="home-event-image">
+                            <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                            <span><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="home-event-copy">
+                            <span class="home-card-kicker">SCHOOL LIFE</span>
+                            <h3>{{ event.title }}</h3>
+                            <p>{{ event.description|truncatewords:24 }}</p>
+                            {% if event.read_more_link and event.read_more_link != "NA" %}
+                            <a class="home-text-link" href="{{ event.read_more_link }}">Read more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                            {% endif %}
+                        </div>
+                    </article>
+                    {% empty %}
+                    <div class="home-empty-state">
+                        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                        <p>School events and activities will be shared here.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
-            <button class="carousel-control-next"
-                    type="button"
-                    data-bs-target="#gallerySlider"
-                    data-bs-slide="next">
-                <span class="carousel-control-next-icon" style="background-color:#fd0d0d; border-radius:50%; padding:20px;" aria-hidden="true"></span>
-            </button>
+        <section class="home-gallery-section" id="gallery">
+            <div class="home-container">
+                <div class="home-section-heading home-section-heading-light">
+                    <span class="home-section-label">A GLIMPSE OF SCHOOL LIFE</span>
+                    <h2>Moments that bring us together</h2>
+                    <p>Explore the people, activities and experiences that make our community special.</p>
+                </div>
+                <div class="home-gallery-grid" role="region" aria-label="School photo gallery" aria-roledescription="carousel" tabindex="0">
+                    {% for photo in gallery %}
+                    <a class="home-gallery-item" href="{{ photo.image.url }}" target="_blank" rel="noopener">
+                        <img src="{{ photo.image.url }}" alt="{{ photo.title|default:'School life photograph' }}">
+                        <span>{{ photo.title|default:'School life' }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                    </a>
+                    {% empty %}
+                    <a class="home-gallery-item" href="/media/gallery/istockphoto-1142918319-612x612.jpg" target="_blank" rel="noopener">
+                        <img src="/media/gallery/istockphoto-1142918319-612x612.jpg" alt="Students at a school activity">
+                        <span>School activities <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                    </a>
+                    <a class="home-gallery-item" href="/media/gallery/outdoor-event-view-stage-image-orientation-horizontal-there-copy-space-30856948.webp" target="_blank" rel="noopener">
+                        <img src="/media/gallery/outdoor-event-view-stage-image-orientation-horizontal-there-copy-space-30856948.webp" alt="A school celebration">
+                        <span>School celebrations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                    </a>
+                    <a class="home-gallery-item" href="/media/gallery/img.png" target="_blank" rel="noopener">
+                        <img src="/media/gallery/img.png" alt="A moment from school life">
+                        <span>Our school community <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
 
-        </div>
-        {% else %}
-        <div class="text-center py-3 text-muted">
-            No gallery images found.
-        </div>
-        {% endif %}
+        <section class="home-section home-disclosure-section" id="public-disclosure">
+            <div class="home-container home-disclosure-card">
+                <div class="home-disclosure-icon"><i class="fa-solid fa-file-shield" aria-hidden="true"></i></div>
+                <div class="home-disclosure-copy">
+                    <span class="home-section-label">INFORMATION &amp; TRANSPARENCY</span>
+                    <h2>Public disclosure</h2>
+                    <p>For official school information and public disclosure documents, please contact the school office.</p>
+                </div>
+                <a class="home-button home-button-navy" href="{% url 'public-disclosure' %}">
+                    Request information <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </section>
 
-    </div>
-
-</section>
-{% endblock content %}
+        <section class="home-contact-section" id="contact">
+            <div class="home-container home-contact-grid">
+                <div class="home-contact-intro">
+                    <span class="home-section-label">WE’RE HERE TO HELP</span>
+                    <h2>Let’s start a conversation.</h2>
+                    <p>Questions about admissions, school life or public information? Reach out to our team.</p>
+                    <a class="home-button home-button-gold" href="{% url 'contact' %}">Admission enquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <div class="home-contact-details">
+                    {% if brand.primary_phone %}
+                    <a href="tel:{{ brand.primary_phone }}" class="home-contact-item">
+                        <span><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+                        <div><small>CALL THE SCHOOL</small><strong>{{ brand.primary_phone }}</strong></div>
+                    </a>
+                    {% endif %}
+                    {% if brand.email %}
+                    <a href="mailto:{{ brand.email }}" class="home-contact-item">
+                        <span><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+                        <div><small>EMAIL US</small><strong>{{ brand.email }}</strong></div>
+                    </a>
+                    {% endif %}
+                    {% if brand.address %}
+                    <div class="home-contact-item">
+                        <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+                        <div><small>VISIT US</small><strong>{{ brand.address }}</strong></div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="{% static 'javascript/index.js' %}"></script>
+{% endblock %}

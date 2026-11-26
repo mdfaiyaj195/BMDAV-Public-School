@@ -1,0 +1,92 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Admissions | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Admissions</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">JOIN OUR COMMUNITY</span>
+                <h1>Admissions</h1>
+                <p>Begin your child's journey with a school community that values learning, character and possibility.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-user-plus"></i>Start a conversation</span><span><i class="fa-solid fa-people-group"></i>Family partnership</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">A</div>
+        </section>
+        <section class="information-overview" id="admission-overview">
+            <span class="information-kicker">WELCOME FAMILIES</span>
+            <h2>Admission Overview</h2>
+            <p>Our admissions team welcomes families to learn more about the school and the opportunities available to students. Contact the school office for current admission information, guidance and the next steps for your enquiry.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-envelope"></i>Contact the School</a>
+        </section>
+
+        <section class="information-static-section" id="admission-process">
+            <span class="information-kicker">HOW TO APPLY</span>
+            <h2>Admission Process</h2>
+            <ol class="admission-steps">
+                <li><strong>Make an enquiry</strong><span>Contact the school to learn about availability and the current admission schedule.</span></li>
+                <li><strong>Collect the application form</strong><span>Request the current admission form and instructions from the school office.</span></li>
+                <li><strong>Submit the application</strong><span>Complete the form and provide the documents requested by the school.</span></li>
+                <li><strong>Follow the school's guidance</strong><span>The school will inform families about any further interaction, review or next steps.</span></li>
+            </ol>
+        </section>
+
+        <section class="information-static-section" id="admission-policy">
+            <span class="information-kicker">FAIR AND TRANSPARENT</span>
+            <h2>Admission Policy</h2>
+            <p>Admissions are considered in accordance with the school's current policy, available places and applicable education requirements. Families should provide complete and accurate information with their application and follow the instructions and timelines communicated by the school.</p>
+        </section>
+
+        <section class="information-static-section" id="eligibility-criteria">
+            <span class="information-kicker">WHO MAY APPLY</span>
+            <h2>Eligibility Criteria</h2>
+            <p>Eligibility depends on the class applied for and the student's age, previous education and required records. Please contact the school office for the current class-wise criteria and document checklist before submitting an application.</p>
+        </section>
+
+        <section class="information-static-section" id="fee-structure">
+            <span class="information-kicker">FEE INFORMATION</span>
+            <h2>Fee Structure</h2>
+            <p>This is an informational section. Fees may vary by class and academic year; the current fee schedule and payment details are available from the school office. Please confirm the applicable amounts directly with the school before making a payment.</p>
+        </section>
+
+        <section class="information-static-section" id="online-admission-enquiry">
+            <span class="information-kicker">GET IN TOUCH</span>
+            <h2>Online Admission Enquiry</h2>
+            <p>Families can send an enquiry through the school's contact page. Include the student's name, class of interest and a way to reach you so the school can guide you on availability and the next steps.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-paper-plane"></i>Send an Enquiry</a>
+        </section>
+
+        <section class="information-static-section" id="admission-forms">
+            <span class="information-kicker">APPLICATION DOCUMENTS</span>
+            <h2>Download Admission Forms</h2>
+            <p>Use the current admission form issued by the school for the relevant academic year. As no downloadable form is published here, please contact the school office to request the latest form and instructions.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-file-arrow-down"></i>Request the Admission Form</a>
+        </section>
+
+        <section class="information-static-section" id="admission-faqs">
+            <span class="information-kicker">QUICK ANSWERS</span>
+            <h2>FAQs</h2>
+            <div class="admission-faq-list">
+                <details>
+                    <summary>How can I check whether a class has seats available?</summary>
+                    <p>Contact the school office with the class you are interested in. Availability can change during the admission period.</p>
+                </details>
+                <details>
+                    <summary>Which documents should I submit?</summary>
+                    <p>The required documents depend on the class and current admission policy. The school office can provide the latest checklist.</p>
+                </details>
+                <details>
+                    <summary>Where can I get the admission form?</summary>
+                    <p>Please contact the school office to request the current form and submission instructions.</p>
+                </details>
+                <details>
+                    <summary>How can I confirm the fee amount?</summary>
+                    <p>Request the current class-wise fee schedule directly from the school before making a payment.</p>
+                </details>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

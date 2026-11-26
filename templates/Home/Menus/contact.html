@@ -1,0 +1,123 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Contact Us | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Contact Us</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">WE ARE HERE TO HELP</span>
+                <h1>Contact Us</h1>
+                <p>Connect with B.M. DAV Public School for general enquiries, admissions information and assistance.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-phone"></i>Call the school</span><span><i class="fa-solid fa-envelope"></i>Send an enquiry</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">C</div>
+        </section>
+
+        {% if messages %}
+        <div class="contact-flash-messages" aria-live="polite">
+            {% for message in messages %}
+            <div class="contact-flash-message {{ message.tags }}" role="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <section class="information-static-section" id="school-address">
+            <span class="information-kicker">VISIT THE SCHOOL</span>
+            <h2>School Address</h2>
+            {% if brand.address %}
+            <p>{{ brand.address }}</p>
+            {% else %}
+            <p>School address is currently unavailable. Please contact the school office for assistance.</p>
+            {% endif %}
+        </section>
+
+        <section class="information-static-section" id="contact-numbers">
+            <span class="information-kicker">CALL THE SCHOOL</span>
+            <h2>Contact Numbers</h2>
+            <div class="contact-detail-list">
+                {% if brand.primary_phone %}<p><strong>Primary:</strong> <a href="tel:{{ brand.primary_phone }}">{{ brand.primary_phone }}</a></p>{% endif %}
+                {% if brand.secondary_phone %}<p><strong>Additional:</strong> <a href="tel:{{ brand.secondary_phone }}">{{ brand.secondary_phone }}</a></p>{% endif %}
+                {% if not brand.primary_phone and not brand.secondary_phone %}<p>Phone numbers are currently unavailable. Please use the enquiry form below.</p>{% endif %}
+            </div>
+        </section>
+
+        <section class="information-static-section" id="official-email">
+            <span class="information-kicker">EMAIL THE SCHOOL</span>
+            <h2>Official Email</h2>
+            {% if brand.email %}
+            <p><a href="mailto:{{ brand.email }}">{{ brand.email }}</a></p>
+            {% else %}
+            <p>The school's email address is currently unavailable. Please use the enquiry form below.</p>
+            {% endif %}
+        </section>
+
+        <section class="information-static-section" id="google-maps-location">
+            <span class="information-kicker">FIND US</span>
+            <h2>Google Maps Location</h2>
+            {% if brand.address %}
+            <div class="contact-map-frame">
+                <iframe
+                    src="https://www.google.com/maps?q={{ brand.address|urlencode }}&amp;output=embed"
+                    title="Map showing the school location"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            {% else %}
+            <p>Add the school address in the brand information to show its map location.</p>
+            {% endif %}
+        </section>
+
+        <section class="information-static-section" id="contact-enquiry-form">
+            <span class="information-kicker">SEND US A MESSAGE</span>
+            <h2>Contact Enquiry Form</h2>
+            <p>Your enquiry will be sent to the school's official email address. Fields marked required must be completed.</p>
+            <form class="contact-enquiry-form" action="{% url 'contact' %}" method="post">
+                {% csrf_token %}
+                <div class="contact-form-grid">
+                    <div class="contact-form-field">
+                        <label for="contact-name">Your name <span aria-hidden="true">*</span></label>
+                        <input id="contact-name" name="name" type="text" maxlength="150" value="{{ contact_form.name }}" autocomplete="name" required>
+                    </div>
+                    <div class="contact-form-field">
+                        <label for="contact-email">Email address <span aria-hidden="true">*</span></label>
+                        <input id="contact-email" name="email" type="email" maxlength="254" value="{{ contact_form.email }}" autocomplete="email" required>
+                    </div>
+                    <div class="contact-form-field">
+                        <label for="contact-phone">Contact number</label>
+                        <input id="contact-phone" name="phone" type="tel" maxlength="30" value="{{ contact_form.phone }}" autocomplete="tel">
+                    </div>
+                    <div class="contact-form-field">
+                        <label for="contact-subject">Subject <span aria-hidden="true">*</span></label>
+                        <input id="contact-subject" name="subject" type="text" maxlength="150" value="{{ contact_form.subject }}" required>
+                    </div>
+                    <div class="contact-form-field contact-form-field-wide">
+                        <label for="contact-message">Your message <span aria-hidden="true">*</span></label>
+                        <textarea id="contact-message" name="message" rows="6" required>{{ contact_form.message }}</textarea>
+                    </div>
+                </div>
+                <button class="school-login-btn contact-submit-button" type="submit">
+                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Send Enquiry
+                </button>
+            </form>
+        </section>
+
+        <section class="information-static-section" id="directions-to-school">
+            <span class="information-kicker">PLAN YOUR VISIT</span>
+            <h2>Directions to the School</h2>
+            {% if brand.address %}
+            <p>Use Google Maps to plan a route to {{ brand.address }}. Please contact the school before visiting to confirm office hours or arrange an appointment.</p>
+            <a class="topic-back-link" href="https://www.google.com/maps/dir/?api=1&amp;destination={{ brand.address|urlencode }}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i>Get Directions
+            </a>
+            {% else %}
+            <p>Contact the school office for directions and visit arrangements.</p>
+            {% endif %}
+        </section>
+    </div>
+</main>
+{% endblock %}

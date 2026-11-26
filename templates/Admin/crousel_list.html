@@ -53,12 +53,16 @@
                                                 <img src="{{ crousel.image.url }}" alt="Crousel Image" style="width: 100px; height: auto;">
                                             </td>
                                             <td>{{ crousel.status }}</td>
-                                            <td>{{ crousel.create_date|date:"Y-m-d H:i:s" }}</td>
+                                            <td>{{ crousel.created_at|date:"Y-m-d H:i:s" }}</td>
                                             <td>
                                                 <a href="#" class="delete-btn" data-id="{{ crousel.id }}">
                                                     <i style="font-size: 20px; color: red;" class="fa fa-trash-o"></i>
                                                 </a>
                                             </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="6" class="text-center">No banners have been added yet.</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -80,18 +84,18 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-12 mb-4">
-                                                <label for="crousel_title" class="form-label">Title</label>
-                                                <input type="text" id="crousel_title" name="title" class="form-control" required>
+                                                <label for="crousel_title" class="form-label">Title <span class="text-muted">(optional)</span></label>
+                                                <input type="text" id="crousel_title" name="title" class="form-control" maxlength="100">
                                             </div>
 
                                             <div class="col-lg-12 col-md-12 col-12 mb-4">
                                                 <label for="crousel_image" class="form-label">Image</label>
-                                                <input type="file" id="crousel_image" name="image" class="form-control" required>
+                                                <input type="file" id="crousel_image" name="image" class="form-control" accept="image/*" required>
                                             </div>
 
                                             <div class="col-lg-12 col-md-12 col-12 mb-4">
                                                 <label for="crousel_status" class="form-label">Status</label>
-                                                <select id="crousel_status" name="status" class="form-control">
+                                                <select id="crousel_status" name="status" class="form-control" required>
                                                     <option value="Active">Active</option>
                                                     <option value="Inactive">Inactive</option>
                                                 </select>

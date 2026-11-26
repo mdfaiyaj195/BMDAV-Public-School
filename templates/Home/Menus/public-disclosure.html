@@ -1,0 +1,77 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Mandatory Public Disclosure | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Mandatory Public Disclosure</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">OPEN &amp; ACCOUNTABLE</span>
+                <h1>Mandatory Public Disclosure</h1>
+                <p>Access school information and documents shared in the interest of transparency and public awareness.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-file-shield"></i>Transparency</span><span><i class="fa-solid fa-scale-balanced"></i>Accountability</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">P</div>
+        </section>
+        <section class="information-overview" id="disclosure-overview">
+            <span class="information-kicker">PUBLIC INFORMATION</span>
+            <h2>Committed to clear communication</h2>
+            <p>Relevant school information and applicable documents are made available to support informed families and responsible public oversight. For a specific record or clarification, please contact the school office.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-envelope"></i>Contact the School</a>
+        </section>
+
+        <section class="information-static-section" id="general-school-information">
+            <span class="information-kicker">SCHOOL PROFILE</span>
+            <h2>General School Information</h2>
+            <p>This section covers the school's official profile and general particulars, such as contact information, school timings, classes offered and other applicable details. Please refer to the current information issued by the school for verified particulars.</p>
+        </section>
+
+        <section class="information-static-section" id="documents-certificates">
+            <span class="information-kicker">OFFICIAL RECORDS</span>
+            <h2>Documents and Certificates</h2>
+            <p>Applicable school documents and certificates are made available as maintained by the school. For a current copy or clarification about a specific document, please contact the school office.</p>
+        </section>
+
+        <section class="information-static-section" id="disclosure-academic-information">
+            <span class="information-kicker">ACADEMICS</span>
+            <h2>Academic Information</h2>
+            <p>Academic information includes details about the curriculum, classes, teaching and assessment. Class-wise syllabus and academic guidance are available through the Academics section and official school communications.</p>
+            <a class="topic-back-link" href="{% url 'academics' %}"><i class="fa-solid fa-book-open"></i>View Academics</a>
+        </section>
+
+        <section class="information-static-section" id="disclosure-fee-structure">
+            <span class="information-kicker">FEE INFORMATION</span>
+            <h2>Fee Structure</h2>
+            <p>The current fee schedule and applicable payment details should be confirmed directly with the school. Please contact the school office for the official class-wise fee information; no fee amounts are stated here.</p>
+        </section>
+
+        <section class="information-static-section" id="staff-details">
+            <span class="information-kicker">SCHOOL TEAM</span>
+            <h2>Staff Details</h2>
+            <p>This section is intended for current staff information maintained by the school, including relevant roles and qualifications. For verified or updated staff details, please refer to official school communications or contact the office.</p>
+        </section>
+
+        <section class="information-static-section" id="infrastructure-details">
+            <span class="information-kicker">CAMPUS AND FACILITIES</span>
+            <h2>Infrastructure Details</h2>
+            <p>Infrastructure information covers the school's campus, learning spaces and facilities. Visit the Infrastructure &amp; Facilities page for an overview of the school's learning environment.</p>
+            <a class="topic-back-link" href="{% url 'facilities' %}"><i class="fa-solid fa-building"></i>View Infrastructure &amp; Facilities</a>
+        </section>
+
+        <section class="information-static-section" id="safety-certificates">
+            <span class="information-kicker">SAFETY AND COMPLIANCE</span>
+            <h2>Safety and Other Applicable Certificates</h2>
+            <p>Applicable safety and compliance certificates are maintained by the school and should be checked in their current official form. Please contact the school office for details or copies of specific certificates.</p>
+        </section>
+
+        <section class="information-static-section" id="downloadable-pdfs">
+            <span class="information-kicker">DOCUMENTS FOR REFERENCE</span>
+            <h2>Downloadable PDF Documents</h2>
+            <p>School-specific disclosure PDFs can be listed here when the verified documents are published. No disclosure PDF documents are currently available in this section; please contact the school office to request current records.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-file-pdf"></i>Request a Document</a>
+        </section>
+    </div>
+</main>
+{% endblock %}

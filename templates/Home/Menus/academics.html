@@ -1,0 +1,85 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Academics | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Academics</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">LEARNING &amp; DISCOVERY</span>
+                <h1>Academics</h1>
+                <p>Explore a learning experience that encourages curiosity, strong foundations and confident thinking.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-book-open"></i>Knowledge</span><span><i class="fa-solid fa-lightbulb"></i>Curiosity</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">A</div>
+        </section>
+        <section class="information-overview">
+            <span class="information-kicker">OUR APPROACH</span>
+            <h2>Learning that prepares students for life</h2>
+            <p>Our academic programme supports clear understanding, independent thought and a lifelong love of learning. Students are encouraged to ask questions, connect ideas and apply what they learn with confidence and integrity.</p>
+            <a class="topic-back-link" href="{% url 'index' %}"><i class="fa-solid fa-arrow-left"></i>Return to Home</a>
+        </section>
+
+        <section class="information-static-section" id="academic-philosophy">
+            <span class="information-kicker">OUR BELIEF</span>
+            <h2>Academic Philosophy</h2>
+            <p>We believe learning should build strong foundations while encouraging curiosity, independent thinking and a love of discovery. Students are supported to understand concepts, apply knowledge and take responsibility for their academic growth.</p>
+        </section>
+
+        <section class="information-static-section" id="curriculum-methodology">
+            <span class="information-kicker">HOW WE TEACH</span>
+            <h2>Curriculum and Teaching Methodology</h2>
+            <p>The curriculum is delivered through structured lessons and age-appropriate learning activities. Teachers use explanation, discussion, practice, projects and regular feedback to help students engage with topics, strengthen understanding and make connections across subjects.</p>
+        </section>
+
+        <section class="information-static-section" id="classes-sections">
+            <span class="information-kicker">LEARNING GROUPS</span>
+            <h2>Classes and Sections</h2>
+            <p>Students are organised into classes and sections to support focused teaching, classroom participation and individual progress. Each class follows its prescribed academic programme, with teachers guiding students through the learning goals for their level.</p>
+        </section>
+
+        <section class="information-static-section" id="academic-calendar">
+            <span class="information-kicker">YEAR AT A GLANCE</span>
+            <h2>Academic Calendar</h2>
+            <p>The academic calendar provides an overview of the school year, including teaching periods, assessments, holidays and key school activities. Students and families should refer to the latest calendar shared by the school for current dates and schedule updates.</p>
+        </section>
+
+        <section class="information-static-section" id="examination-system">
+            <span class="information-kicker">ASSESSMENT</span>
+            <h2>Examination System</h2>
+            <p>Student progress is assessed through a combination of classwork, assignments, projects and scheduled examinations. Regular assessment helps teachers identify learning needs and gives students feedback to strengthen their understanding and preparation.</p>
+        </section>
+
+        <section class="information-static-section" id="results-achievements">
+            <span class="information-kicker">PROGRESS AND PRIDE</span>
+            <h2>Results and Achievements</h2>
+            <p>We value students' academic progress as well as their effort, perseverance and participation. The school recognises achievements across learning and school activities, and encourages every student to set goals and continue developing their abilities.</p>
+        </section>
+
+        <section class="information-static-section" id="books-syllabus">
+            <span class="information-kicker">STUDY RESOURCES</span>
+            <h2>Books and Syllabus</h2>
+            <p>Each class follows a prescribed syllabus supported by subject textbooks and learning resources. Students should use the book list and syllabus provided by the school for their class and academic year to guide their studies.</p>
+        </section>
+
+        <section class="information-static-section" id="academic-information">
+            <span class="information-kicker">FOR STUDENTS AND FAMILIES</span>
+            <h2>Academic Information</h2>
+            <div class="information-content-grid">
+                <article class="information-info-card">
+                    <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                    <h3>Learning Expectations</h3>
+                    <p>Attend classes regularly, participate in learning activities, complete assigned work and ask teachers for guidance when needed.</p>
+                </article>
+                <article class="information-info-card">
+                    <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+                    <h3>Family Partnership</h3>
+                    <p>Families can support learning by staying informed about school communication, encouraging regular study habits and discussing student progress with teachers.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

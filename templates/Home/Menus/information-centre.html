@@ -1,0 +1,71 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Information Centre | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Information Centre</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">SCHOOL UPDATES</span>
+                <h1>Information Centre</h1>
+                <p>Find school updates and useful information to help families stay connected with the school community.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-bullhorn"></i>Updates</span><span><i class="fa-solid fa-circle-info"></i>Useful information</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">I</div>
+        </section>
+        <section class="information-overview" id="information-overview">
+            <span class="information-kicker">STAY INFORMED</span>
+            <h2>One place to keep up to date</h2>
+            <p>We aim to share important school information clearly and in a timely way. Families may also contact the school office for assistance with a notice, calendar item or document.</p>
+            <a class="topic-back-link" href="{% url 'index' %}"><i class="fa-solid fa-arrow-left"></i>Return to Home</a>
+        </section>
+
+        <section class="information-static-section" id="news-announcements">
+            <span class="information-kicker">LATEST UPDATES</span>
+            <h2>News and Announcements</h2>
+            <p>Keep up with school news, programme updates and important announcements. Families should check the school's official communication channels regularly for the latest information.</p>
+        </section>
+
+        <section class="information-static-section" id="notices-circulars">
+            <span class="information-kicker">OFFICIAL COMMUNICATIONS</span>
+            <h2>Notices and Circulars</h2>
+            <p>Notices and circulars share important information about school activities, requirements and dates. Please read each communication carefully and follow any instructions or response timelines provided.</p>
+        </section>
+
+        <section class="information-static-section" id="events-calendar">
+            <span class="information-kicker">DATES TO REMEMBER</span>
+            <h2>Events Calendar</h2>
+            <p>The events calendar helps families plan for school programmes and activities throughout the academic year. Dates and timings may be updated, so please refer to the latest school communication for confirmed details.</p>
+        </section>
+
+        <section class="information-static-section" id="holiday-list">
+            <span class="information-kicker">SCHOOL SCHEDULE</span>
+            <h2>Holiday List</h2>
+            <p>The holiday list outlines scheduled school holidays for the academic year. Any changes or additional closures will be communicated by the school; please check the latest notice before making plans.</p>
+        </section>
+
+        <section class="information-static-section" id="important-downloads">
+            <span class="information-kicker">USEFUL DOCUMENTS</span>
+            <h2>Important Downloads</h2>
+            <p>Important forms, guidelines and school documents are shared with families as they become available. Contact the school office if you need a current document that is not listed on the website.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-download"></i>Request a Document</a>
+        </section>
+
+        <section class="information-static-section" id="syllabus-book-lists">
+            <span class="information-kicker">ACADEMIC RESOURCES</span>
+            <h2>Syllabus and Book Lists</h2>
+            <p>Syllabus and book lists are organised by class and academic year to guide students' learning and preparation. Please contact the school or refer to the latest class communication for the applicable list.</p>
+            <a class="topic-back-link" href="{% url 'academics' %}"><i class="fa-solid fa-book-open"></i>Visit Academics</a>
+        </section>
+
+        <section class="information-static-section" id="transfer-certificate">
+            <span class="information-kicker">STUDENT RECORDS</span>
+            <h2>Transfer Certificate Information and Verification</h2>
+            <p>For information about requesting a Transfer Certificate or verifying a certificate issued by the school, contact the school office through the official contact details. Please provide the relevant student and certificate details directly to the office for assistance.</p>
+            <a class="topic-back-link" href="{% url 'contact' %}"><i class="fa-solid fa-file-circle-check"></i>Contact the School Office</a>
+        </section>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Student Life | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Student Life</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">GROWING TOGETHER</span>
+                <h1>Student Life</h1>
+                <p>School life is enriched by friendship, creativity, teamwork and opportunities to discover new interests.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-people-group"></i>Belonging</span><span><i class="fa-solid fa-star"></i>Participation</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">S</div>
+        </section>
+        <section class="information-overview" id="student-life-overview">
+            <span class="information-kicker">BEYOND THE CLASSROOM</span>
+            <h2>Every student has room to shine</h2>
+            <p>Students learn to collaborate, express themselves and take on new challenges through a broad range of school experiences. These shared moments help build confidence, resilience and a strong sense of community.</p>
+            <a class="topic-back-link" href="{% url 'index' %}"><i class="fa-solid fa-arrow-left"></i>Return to Home</a>
+        </section>
+
+        <section class="information-static-section" id="sports-and-games">
+            <span class="information-kicker">TEAMWORK AND FITNESS</span>
+            <h2>Sports and Games</h2>
+            <p>Sports and games give students opportunities to stay active, develop coordination and practise teamwork. Participation also encourages perseverance, discipline and respect for others.</p>
+        </section>
+
+        <section class="information-static-section" id="cultural-activities">
+            <span class="information-kicker">CREATIVITY AND EXPRESSION</span>
+            <h2>Cultural Activities</h2>
+            <p>Cultural activities let students explore their interests, express ideas and appreciate different forms of art and culture. Taking part helps build confidence, creativity and a sense of belonging.</p>
+        </section>
+
+        <section class="information-static-section" id="annual-functions">
+            <span class="information-kicker">SHARED CELEBRATIONS</span>
+            <h2>Annual Functions</h2>
+            <p>Annual functions bring the school community together and give students a platform to share their learning and talents. Preparing for and participating in school events helps students practise collaboration and presentation skills.</p>
+        </section>
+
+        <section class="information-static-section" id="clubs-competitions">
+            <span class="information-kicker">EXPLORE YOUR INTERESTS</span>
+            <h2>Clubs and Competitions</h2>
+            <p>Clubs and competitions encourage students to explore areas of interest, set goals and learn from one another. They provide opportunities to practise new skills and take part in friendly, constructive challenges.</p>
+        </section>
+
+        <section class="information-static-section" id="student-achievements">
+            <span class="information-kicker">EFFORT AND PROGRESS</span>
+            <h2>Student Achievements</h2>
+            <p>We value students' efforts, progress and contributions in academic, creative, sporting and community activities. Recognising achievements encourages learners to keep developing their abilities and supporting one another.</p>
+        </section>
+
+        <section class="information-static-section" id="festivals-celebrations">
+            <span class="information-kicker">TOGETHER AS A COMMUNITY</span>
+            <h2>Festivals and Celebrations</h2>
+            <p>School celebrations offer students opportunities to learn about traditions, share in meaningful occasions and appreciate the diversity of the community. These experiences help foster respect, inclusion and togetherness.</p>
+        </section>
+
+        <section class="information-static-section" id="co-curricular-activities">
+            <span class="information-kicker">LEARNING IN MANY WAYS</span>
+            <h2>Co-curricular Activities</h2>
+            <p>Co-curricular activities complement classroom learning by helping students develop communication, creativity, leadership and practical skills. Participation supports well-rounded growth and gives students new ways to discover their strengths.</p>
+        </section>
+    </div>
+</main>
+{% endblock %}

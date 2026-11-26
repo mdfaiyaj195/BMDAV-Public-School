@@ -1,0 +1,77 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}About the School | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>About the School</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">OUR SCHOOL</span>
+                <h1>About the School</h1>
+                <p>Discover the values, people and purpose that shape the B.M. DAV Public School community.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-landmark"></i>A proud heritage</span><span><i class="fa-solid fa-heart"></i>Learning with purpose</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">B</div>
+        </section>
+        <section class="information-overview" id="about-school">
+            <span class="information-kicker">WELCOME</span>
+            <h2>A community built around every learner</h2>
+            <p>B.M. DAV Public School is committed to nurturing confident, thoughtful and responsible learners. We bring together caring guidance, meaningful learning and a supportive school environment so students can grow in knowledge, character and purpose.</p>
+            <a class="topic-back-link" href="{% url 'index' %}"><i class="fa-solid fa-arrow-left"></i>Return to Home</a>
+        </section>
+
+        <section class="information-static-section" id="school-history">
+            <span class="information-kicker">OUR JOURNEY</span>
+            <h2>School History</h2>
+            <p>B.M. DAV Public School was established to provide students with a strong foundation for lifelong learning. The school continues to bring learners, families and educators together in a supportive community focused on knowledge, character and growth.</p>
+        </section>
+
+        <section class="information-static-section" id="vision-mission">
+            <span class="information-kicker">OUR PURPOSE</span>
+            <h2>Vision and Mission</h2>
+            <div class="information-content-grid">
+                <article class="information-info-card">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    <h3>Our Vision</h3>
+                    <p>To nurture confident, compassionate and capable individuals who use their knowledge and values to contribute positively to society.</p>
+                </article>
+                <article class="information-info-card">
+                    <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+                    <h3>Our Mission</h3>
+                    <p>To provide a balanced and supportive education that encourages academic growth, creativity, discipline, respect and responsibility.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="information-static-section" id="chairman-message">
+            <span class="information-kicker">LEADERSHIP</span>
+            <h2>Chairman's Message</h2>
+            <blockquote class="information-message-card">
+                <p>Education helps young people discover their abilities and prepare for the future. We are committed to providing an encouraging environment where every student can learn, grow in character and work towards their potential. We value the partnership between students, families and teachers in building a strong school community.</p>
+            </blockquote>
+        </section>
+
+        <section class="information-static-section" id="principal-message">
+            <span class="information-kicker">FROM THE PRINCIPAL</span>
+            <h2>Principal's Message</h2>
+            <blockquote class="information-message-card">
+                <p>At B.M. DAV Public School, we aim to make learning engaging, inclusive and meaningful. Our teachers encourage students to stay curious, work with dedication and treat others with kindness and respect. Together, we strive to help each learner become confident, responsible and ready for the opportunities ahead.</p>
+            </blockquote>
+        </section>
+
+        <section class="information-static-section" id="school-management">
+            <span class="information-kicker">GOVERNANCE</span>
+            <h2>School Management</h2>
+            <p>The school is guided by its management in partnership with the principal, teachers and staff. Their shared work supports the school's academic and administrative functions, promotes a safe and positive learning environment, and helps the school community move towards its educational goals.</p>
+        </section>
+
+        <section class="information-static-section" id="educational-philosophy">
+            <span class="information-kicker">HOW WE LEARN</span>
+            <h2>Educational Philosophy</h2>
+            <p>We believe education should develop the whole learner. Alongside strong academic foundations, students need opportunities to think independently, ask questions, express creativity and practise empathy, integrity and cooperation. We encourage every student to take an active role in learning and to use their abilities responsibly.</p>
+        </section>
+    </div>
+</main>
+{% endblock %}

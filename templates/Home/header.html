@@ -1,73 +1,86 @@
 {% load static %}
-<header>
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="left">
-                <span class="top-bar-item"><i class="fa-solid fa-phone text-success"></i> HelpLine No. : {{ brand.primary_phone }}, {{ brand.secondary_phone }}</span>
-                <span class="top-bar-item"><i class="fa-solid fa-envelope text-success"></i> {{ brand.address }}</span>
-                <span class="top-bar-item"><i class="fa-solid fa-location-dot text-success"></i> {{ brand.email }}</span>
-            </div>
-
-            <div class="right mt-1 me-3 d-flex align-items-center gap-2">
-                <button class="btn btn-outline-primary text-black fw-bold d-none d-md-inline-flex" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">
-                    Login
-                </button>
-                <button class="mobile-menu-toggle d-md-none btn btn-outline-light text-black"
-                    type="button" aria-label="Toggle menu" aria-expanded="false">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Header -->
-    <div class="main-header">
-        <div class="container-fluid d-flex justify-content-between align-items-center px-4 py-3">
-            <div class="logo-area d-flex align-items-center">
-                <a href="/" class="">
-                    <img src="{{ logo.logo.url }}" alt="logo">
-                </a>
-                <div>
-                    <a href="/" class="text-decoration-none"><h1>{{ brand.brand_name }}</h1></a>
-                    <p>{{ brand.address }}</p>
+<header class="school-header">
+    <div class="school-topbar">
+        <div class="container-fluid px-lg-5">
+            <div class="topbar-inner">
+                <div class="topbar-contact">
+                    <a href="tel:{{ brand.primary_phone }}"><i class="fa-solid fa-phone"></i>{{ brand.primary_phone }}</a>
+                    <a href="mailto:{{ brand.email }}"><i class="fa-solid fa-envelope"></i>{{ brand.email }}</a>
+                    <span><i class="fa-solid fa-location-dot"></i>{{ brand.address }}</span>
+                </div>
+                <div class="topbar-right">
+                    <span><i class="fa-solid fa-graduation-cap"></i>Welcome to B.M. DAV Public School</span>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="right-logo">
-                <img src="{{ logo.favicon.url }}" alt="g20">
+    <div class="school-main-header">
+        <div class="container-fluid px-lg-5">
+            <div class="school-brand-row">
+                <a href="{% url 'index' %}" class="school-brand">
+                    <div class="school-logo-box">
+                        <img src="{{ logo.logo.url }}" alt="{{ brand.brand_name }} Logo">
+                    </div>
+                    <div class="school-brand-text">
+                        <h1>{{ brand.brand_name }}</h1>
+                        <p>EXCELLENCE • KNOWLEDGE • CHARACTER</p>
+                        <span>Inspiring Young Minds, Building Bright Futures</span>
+                    </div>
+                </a>
+                <div class="school-header-right">
+                    <div class="header-divider"></div>
+                    <div class="school-header-contact">
+                        <span>ADMISSIONS &amp; ENQUIRIES</span>
+                        <a href="tel:{{ brand.primary_phone }}">
+                            <i class="fa-solid fa-phone-volume"></i>{{ brand.primary_phone }}
+                        </a>
+                    </div>
+                    <button class="school-login-btn" type="button"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="fa-solid fa-user-lock"></i>
+                        <span>Admin Login</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Navbar -->
-    <nav>
-        <div class="container">
-            <ul class="nav-menu">
-                <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-                {% for item in menu_list %}
-                <li>
-                    <a href="{% url 'menu_detail' id=item.id %}" class="nav-link">{{ item.name }}</a>
-                    {% if item.submenu_set.all %}
-                    <span class="submenu-toggle d-md-none"><i class="fa-solid fa-chevron-down"></i></span>
-                    <ul>
-                        {% for sub_item in item.submenu_set.all %}
-                        <li><a href="{% url 'submenu_detail' submenu_id=sub_item.id %}"
-                                class="nav-link">{{sub_item.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </li>
-                {% empty %}
-                <li>No menu items available</li>
-                {% endfor %}
-            </ul>
-            <div class="mobile-menu-actions d-md-none">
-                <button class="btn btn-light w-100 text-black fw-bold" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">
-                    Login
-                </button>
+    <nav class="school-navbar navbar navbar-expand-lg">
+        <div class="container-fluid px-lg-5">
+            <a href="{% url 'index' %}" class="mobile-brand d-lg-none">
+                <i class="fa-solid fa-graduation-cap"></i>B.M. DAV Public School
+            </a>
+            <button class="navbar-toggler school-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#schoolNavigation"
+                    aria-controls="schoolNavigation" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="schoolNavigation">
+                <ul class="navbar-nav school-nav-menu">
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link">
+                            <i class="fa-solid fa-house"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'about-school' %}" class="nav-link">About the School</a></li>
+                    <li class="nav-item"><a href="{% url 'academics' %}" class="nav-link">Academics</a></li>
+                    <li class="nav-item"><a href="{% url 'admissions' %}" class="nav-link">Admissions</a></li>
+                    <li class="nav-item"><a href="{% url 'facilities' %}" class="nav-link">Infrastructure &amp; Facilities</a></li>
+                    <li class="nav-item"><a href="{% url 'student-life' %}" class="nav-link">Student Life</a></li>
+                    <li class="nav-item"><a href="{% url 'media-gallery' %}" class="nav-link">Media &amp; Gallery</a></li>
+                    <li class="nav-item"><a href="{% url 'information-centre' %}" class="nav-link">Information Centre</a></li>
+                    <li class="nav-item"><a href="{% url 'public-disclosure' %}" class="nav-link">Mandatory Public Disclosure</a></li>
+                    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact Us</a></li>
+                </ul>
+                <div class="mobile-login-area d-lg-none">
+                    <button class="school-login-btn w-100" type="button"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="fa-solid fa-user-lock"></i>Admin Login
+                    </button>
+                </div>
             </div>
         </div>
     </nav>

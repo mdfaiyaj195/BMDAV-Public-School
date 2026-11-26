@@ -1,0 +1,609 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+
+{% block title %}B.M. DAV Public School | Home{% endblock title %}
+
+{% block content %}
+<main class="home-page">
+    <section class="home-hero" aria-labelledby="home-hero-title">
+        <img class="home-hero-image"
+             src="/media/crousel/Slider_b247a72a-9f95-4150-88e3-6147764a0b5c_WhatsApp_Image_2025-08-18_at_10.42.08.jpeg"
+             alt="Students taking part in a school celebration">
+        <div class="home-hero-shade"></div>
+        <div class="home-container home-hero-content">
+            <span class="home-eyebrow">WELCOME TO B.M. DAV PUBLIC SCHOOL</span>
+            <h1 id="home-hero-title">A brighter future<br>starts with a great education.</h1>
+            <p>Discover a welcoming school community where learning, character and curiosity grow together.</p>
+            <div class="home-hero-actions">
+                <a class="home-button home-button-gold" href="#admissions">
+                    Admission Enquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a class="home-button home-button-outline" href="#school-intro">Explore our school</a>
+            </div>
+            <div class="home-hero-note">
+                <span aria-hidden="true"></span>
+                Learning with purpose. Growing with confidence.
+            </div>
+        </div>
+        <a class="home-scroll-link" href="#school-intro" aria-label="Scroll to school introduction">
+            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+        </a>
+    </section>
+
+    <section class="home-welcome-strip" aria-label="School welcome">
+        <div class="home-container home-welcome-inner">
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+            <p><strong>Welcome to our school.</strong> A community dedicated to helping every learner find their potential.</p>
+            <a href="#about">Get to know us <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+    <section class="home-section" id="school-intro">
+        <div class="home-container home-intro-grid">
+            <div class="home-intro-visual">
+                <img src="/media/crousel/Slider_f38442cb-57f2-4c99-8553-7b709abf71f1_DSC00151_1.jpg"
+                     alt="Students and staff at a school celebration">
+                <div class="home-image-caption">
+                    <span class="home-caption-mark"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                    <span><strong>Learning beyond the classroom</strong><small>Growing together, every day</small></span>
+                </div>
+            </div>
+            <div class="home-intro-copy" id="about">
+                <span class="home-section-label">ABOUT OUR SCHOOL</span>
+                <h2>Education that helps every learner <em>thrive.</em></h2>
+                <p>B.M. DAV Public School is a place to learn, discover and build lasting confidence. We believe education is about more than lessons: it is about nurturing thoughtful, capable and compassionate people.</p>
+                <p>With a supportive school community and a commitment to well-rounded growth, we encourage every student to approach the future with curiosity and courage.</p>
+                <a class="home-text-link" href="#vision-mission">Our vision and mission <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-values-section" id="vision-mission">
+        <div class="home-container">
+            <div class="home-section-heading home-section-heading-light">
+                <span class="home-section-label">WHAT GUIDES US</span>
+                <h2>Our vision &amp; mission</h2>
+                <p>Shared values shape how we learn, lead and care for one another.</p>
+            </div>
+            <div class="home-values-grid">
+                <article class="home-value-card">
+                    <span class="home-value-icon"><i class="fa-solid fa-eye" aria-hidden="true"></i></span>
+                    <div>
+                        <span class="home-card-kicker">OUR VISION</span>
+                        <h3>Inspiring potential</h3>
+                        <p>To empower every learner with the knowledge, confidence and values to contribute positively to the world.</p>
+                    </div>
+                </article>
+                <article class="home-value-card">
+                    <span class="home-value-icon"><i class="fa-solid fa-compass" aria-hidden="true"></i></span>
+                    <div>
+                        <span class="home-card-kicker">OUR MISSION</span>
+                        <h3>Learning with purpose</h3>
+                        <p>To provide a caring, engaging environment where curiosity, integrity and a love of learning can flourish.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section home-principal-section">
+        <div class="home-container">
+            <div class="home-principal-card">
+                <div class="home-principal-photo">
+                    <img src="/media/head_mistress/download.png" alt="Head Mistress of B.M. DAV Public School">
+                    <span class="home-photo-corner" aria-hidden="true"></span>
+                </div>
+                <div class="home-principal-copy">
+                    <span class="home-section-label">MESSAGE FROM THE HEAD MISTRESS</span>
+                    <h2>Helping every learner grow with confidence.</h2>
+                    <span class="home-quote-mark" aria-hidden="true">“</span>
+                    <p class="home-principal-message">At B.M. DAV Public School, we believe every child deserves the encouragement to ask questions, discover their strengths and pursue their dreams. Together, let us nurture curiosity, kindness and a lifelong love of learning.</p>
+                    <div class="home-principal-signoff">
+                        <strong>Head Mistress</strong>
+                        <span>B.M. DAV Public School</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section home-academics-section" id="academics">
+        <div class="home-container">
+            <div class="home-section-heading">
+                <span class="home-section-label">A WELL-ROUNDED JOURNEY</span>
+                <h2>Learning for life</h2>
+                <p>We make space for strong foundations, fresh ideas and personal growth.</p>
+            </div>
+            <div class="home-academics-grid">
+                <article class="home-academic-card">
+                    <span class="home-academic-number">01</span>
+                    <span class="home-academic-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+                    <h3>Strong foundations</h3>
+                    <p>Build understanding, ask questions and develop the skills to take on new challenges.</p>
+                </article>
+                <article class="home-academic-card">
+                    <span class="home-academic-number">02</span>
+                    <span class="home-academic-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
+                    <h3>Curiosity &amp; creativity</h3>
+                    <p>Connect ideas through exploration, collaboration and creative expression.</p>
+                </article>
+                <article class="home-academic-card">
+                    <span class="home-academic-number">03</span>
+                    <span class="home-academic-icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></span>
+                    <h3>Character &amp; confidence</h3>
+                    <p>Practise respect, responsibility and resilience in a supportive community.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-facilities-section" id="facilities">
+        <div class="home-container home-facilities-grid">
+            <div class="home-facilities-intro">
+                <span class="home-section-label">THE SCHOOL EXPERIENCE</span>
+                <h2>Room to learn.<br>Space to grow.</h2>
+                <p>Every part of school life can inspire a new interest, a new skill or a new connection.</p>
+                <a class="home-text-link" href="#gallery">See school life <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="home-facility-list">
+                <article class="home-facility-item">
+                    <span><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></span>
+                    <div><h3>Learning spaces</h3><p>Welcoming classrooms for focused learning and collaboration.</p></div>
+                </article>
+                <article class="home-facility-item">
+                    <span><i class="fa-solid fa-flask" aria-hidden="true"></i></span>
+                    <div><h3>Discovery &amp; exploration</h3><p>Opportunities to explore ideas through practical learning.</p></div>
+                </article>
+                <article class="home-facility-item">
+                    <span><i class="fa-solid fa-book" aria-hidden="true"></i></span>
+                    <div><h3>Reading &amp; research</h3><p>Encouraging students to read widely and follow their questions.</p></div>
+                </article>
+                <article class="home-facility-item">
+                    <span><i class="fa-solid fa-person-running" aria-hidden="true"></i></span>
+                    <div><h3>Sports &amp; wellbeing</h3><p>Building teamwork, confidence and healthy habits through activity.</p></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-admission-banner" id="admissions">
+        <div class="home-container home-admission-inner">
+            <div>
+                <span class="home-section-label">YOUR NEXT STEP STARTS HERE</span>
+                <h2>Let’s make their next chapter a great one.</h2>
+                <p>Talk to our team about admissions and find out more about life at B.M. DAV Public School.</p>
+            </div>
+            <a class="home-button home-button-gold" href="#contact">
+                Enquire about admission <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="home-section home-news-section" id="notices">
+        <div class="home-container">
+            <div class="home-section-heading home-section-heading-row">
+                <div>
+                    <span class="home-section-label">STAY UP TO DATE</span>
+                    <h2>Latest news &amp; notices</h2>
+                </div>
+                <a class="home-text-link" href="#contact">Contact the school <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="home-notice-list">
+                {% for notice in notice_list %}
+                <article class="home-notice-card">
+                    <span class="home-notice-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></span>
+                    <div class="home-notice-copy">
+                        <span>{{ notice.publish_date|date:"d M Y" }}</span>
+                        <h3>{{ notice.title }}</h3>
+                    </div>
+                    <a href="{% url 'download_notice' notice.id %}" class="home-notice-link" aria-label="Download {{ notice.title }}">
+                        <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                    </a>
+                </article>
+                {% empty %}
+                <div class="home-empty-state">
+                    <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                    <p>There are no new notices at the moment. Please contact the school office for assistance.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section home-events-section" id="events">
+        <div class="home-container">
+            <div class="home-section-heading">
+                <span class="home-section-label">LEARNING IN ACTION</span>
+                <h2>Events &amp; activities</h2>
+                <p>Shared experiences help students discover their strengths and make lasting memories.</p>
+            </div>
+            <div class="home-events-grid">
+                {% for event in events %}
+                <article class="home-event-card">
+                    <div class="home-event-image">
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                        <span><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="home-event-copy">
+                        <span class="home-card-kicker">SCHOOL LIFE</span>
+                        <h3>{{ event.title }}</h3>
+                        <p>{{ event.description|truncatewords:22 }}</p>
+                        {% if event.read_more_link and event.read_more_link != "NA" %}
+                        <a class="home-text-link" href="{{ event.read_more_link }}">Discover more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </div>
+                </article>
+                {% empty %}
+                <article class="home-event-card">
+                    <div class="home-event-image">
+                        <img src="/media/inside_school/Event_0fced45c-30e6-4c2b-baa6-1025d1c574e5_DSC00240.jpg" alt="Students participating in a school activity">
+                        <span><i class="fa-solid fa-people-group" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="home-event-copy"><span class="home-card-kicker">LEARN TOGETHER</span><h3>Learning in action</h3><p>Curiosity grows when students explore ideas, work together and take part.</p></div>
+                </article>
+                <article class="home-event-card">
+                    <div class="home-event-image">
+                        <img src="/media/inside_school/Event_7561efcf-e860-452f-8d9e-cef0809ccc04_sports_day_2.jpg" alt="Students taking part in sports activities">
+                        <span><i class="fa-solid fa-medal" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="home-event-copy"><span class="home-card-kicker">MOVE &amp; GROW</span><h3>Sports &amp; teamwork</h3><p>Activity helps students practise teamwork, confidence and perseverance.</p></div>
+                </article>
+                <article class="home-event-card">
+                    <div class="home-event-image">
+                        <img src="/media/inside_school/Event_8425e452-1a36-40b6-b090-2b1e3c620cd5_515189591_1175330244396498_8608_3iqBApX.jpg" alt="Students celebrating together at school">
+                        <span><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="home-event-copy"><span class="home-card-kicker">EXPRESS &amp; CREATE</span><h3>Creative expression</h3><p>Celebrations and creative activities give every student a chance to shine.</p></div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="home-gallery-section" id="gallery">
+        <div class="home-container">
+            <div class="home-section-heading home-section-heading-light">
+                <span class="home-section-label">A GLIMPSE OF SCHOOL LIFE</span>
+                <h2>Moments that bring us together</h2>
+                <p>Explore the people, activities and experiences that make our community special.</p>
+            </div>
+            <div class="home-gallery-grid">
+                {% for photo in gallery|slice:":3" %}
+                <a class="home-gallery-item" href="{{ photo.image.url }}" target="_blank" rel="noopener">
+                    <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+                    <span>{{ photo.title }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                </a>
+                {% empty %}
+                <a class="home-gallery-item" href="/media/gallery/Photo_Big_13c244ed-e773-44bb-b316-641714361949_ECO_5.jpg" target="_blank" rel="noopener">
+                    <img src="/media/gallery/Photo_Big_13c244ed-e773-44bb-b316-641714361949_ECO_5.jpg" alt="Students taking part in a school activity">
+                    <span>Learning together <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                </a>
+                <a class="home-gallery-item" href="/media/gallery/Photo_Big_a2173928-7c00-411f-885b-949895ce719b_FS1.jpg" target="_blank" rel="noopener">
+                    <img src="/media/gallery/Photo_Big_a2173928-7c00-411f-885b-949895ce719b_FS1.jpg" alt="Students at a school event">
+                    <span>School celebrations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                </a>
+                <a class="home-gallery-item" href="/media/gallery/Photo_Big_e82c60b3-e8f0-45a9-9626-e14fdb5d0a32_IMG-20221207-WA0007.jpg" target="_blank" rel="noopener">
+                    <img src="/media/gallery/Photo_Big_e82c60b3-e8f0-45a9-9626-e14fdb5d0a32_IMG-20221207-WA0007.jpg" alt="A moment from school life">
+                    <span>Our school community <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section home-disclosure-section" id="public-disclosure">
+        <div class="home-container home-disclosure-card">
+            <div class="home-disclosure-icon"><i class="fa-solid fa-file-shield" aria-hidden="true"></i></div>
+            <div class="home-disclosure-copy">
+                <span class="home-section-label">INFORMATION &amp; TRANSPARENCY</span>
+                <h2>Public disclosure</h2>
+                <p>For official school information and public disclosure documents, please contact the school office.</p>
+            </div>
+            <a class="home-button home-button-navy" href="mailto:{{ brand.email }}?subject=Public%20Disclosure%20Request">
+                Request information <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="home-contact-section" id="contact">
+        <div class="home-container home-contact-grid">
+            <div class="home-contact-intro">
+                <span class="home-section-label">WE’RE HERE TO HELP</span>
+                <h2>Let’s start a conversation.</h2>
+                <p>Questions about admissions, school life or public information? Reach out to our team.</p>
+                <a class="home-button home-button-gold" href="#admissions">Admission enquiry <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="home-contact-details">
+                <a href="tel:{{ brand.primary_phone }}" class="home-contact-item">
+                    <span><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+                    <div><small>CALL THE SCHOOL</small><strong>{{ brand.primary_phone }}</strong></div>
+                </a>
+                <a href="mailto:{{ brand.email }}" class="home-contact-item">
+                    <span><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+                    <div><small>EMAIL US</small><strong>{{ brand.email }}</strong></div>
+                </a>
+                <div class="home-contact-item">
+                    <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+                    <div><small>VISIT US</small><strong>{{ brand.address }}</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="container school-messages-section">
+    <div class="school-messages-heading">
+        <span>OUR SCHOOL COMMUNITY</span>
+        <h2>Messages from our school</h2>
+    </div>
+
+    <div class="row g-4">
+        {% for message in messages_list %}
+        <div class="col-lg-6">
+            <article class="message-card">
+                <div class="message-card-image">
+                    <img src="{{ message.image.url }}" alt="{{ message.name }}">
+                </div>
+                <div class="message-card-content">
+                    <span class="message-card-label">A message from</span>
+                    <h3>{{ message.name }}</h3>
+                    <div class="message-card-divider" aria-hidden="true"></div>
+                    <p>{{ message.message }}</p>
+                    <a href="{{ message.link }}" class="btn btn-school">
+                        Read more <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- INSIDE SCHOOL -->
+<section class="container pb-5">
+
+    <h1 class="inside-title text-center mb-4">
+        INSIDE SCHOOL
+    </h1>
+
+    <!-- Tabs -->
+    <ul class="nav nav-pills justify-content-center mb-4" id="insideTab">
+
+        <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#events">
+                EVENTS
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#achievements">
+                ACHIEVEMENTS
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#awareness">
+                SOCIAL AWARENESS
+            </button>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+
+        <!-- Events -->
+        <div class="tab-pane fade show active" id="events">
+
+            <div class="row">
+
+                {% for event in events %}
+
+                <div class="col-lg-4 mb-4">
+
+                    <div class="inside-card">
+
+                        <img src="{{ event.image.url }}" class="img-fluid mb-3" alt="{{ event.title }}">
+
+                        <h4>{{ event.title }}</h4>
+
+                        <p>
+                            {{ event.description|truncatewords:20 }}
+                        </p>
+
+                        <a href="{{ event.read_more_link }}" class="btn btn-school ms-1 mb-1">
+
+                            Read More
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <h5 class="text-center">
+                    No Events Found
+                </h5>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- Achievements -->
+
+        <div class="tab-pane fade" id="achievements">
+
+            <div class="row">
+
+                {% for achievement in achievements %}
+
+                <div class="col-lg-4 mb-4">
+
+                    <div class="inside-card">
+
+                        <img src="{{ achievement.image.url }}" class="img-fluid mb-3" alt="{{ achievement.title }}">
+
+                        <h4>{{ achievement.title }}</h4>
+
+                        <p>
+
+                            {{ achievement.description|truncatewords:20 }}
+
+                        </p>
+
+                        <a href="{{ achievement.read_more_link }}" class="btn btn-school ms-1 mb-1">
+
+                            Read More
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <h5 class="text-center">
+                    No Achievement Found
+                </h5>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- Social Awareness -->
+
+        <div class="tab-pane fade" id="awareness">
+
+            <div class="row">
+
+                {% for item in awareness %}
+
+                <div class="col-lg-4 mb-4">
+
+                    <div class="inside-card">
+
+                        <img src="{{ item.image.url }}" class="img-fluid mb-3" alt="{{ item.title }}">
+
+                        <h4>{{ item.title }}</h4>
+
+                        <p>
+
+                            {{ item.description|truncatewords:20 }}
+
+                        </p>
+
+                        <a href="{{ item.read_more_link }}" class="btn btn-school ms-1 mb-1">
+
+                            Read More
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <h5 class="text-center">
+                    No Social Awareness Found
+                </h5>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Photo Gallery -->
+<section class="gallery-section py-5">
+
+    <div class="container">
+
+        <h1 class="gallery-title">
+            PHOTO GALLERY
+        </h1>
+
+        {% if gallery %}
+        <div id="gallerySlider"
+             class="carousel slide"
+             data-bs-ride="carousel"
+             data-bs-interval="2500"
+             data-bs-pause="false">
+
+            <div class="carousel-indicators">
+                {% for photo in gallery %}
+                <button type="button"
+                        data-bs-target="#gallerySlider"
+                        data-bs-slide-to="{{ forloop.counter0 }}"
+                        class="{% if forloop.first %}active{% endif %}"
+                        aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                        aria-label="Slide {{ forloop.counter }}">
+                </button>
+                {% endfor %}
+            </div>
+
+            <div class="carousel-inner">
+
+                {% for photo in gallery %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="gallery-slide-wrapper">
+                        <img src="{{ photo.image.url }}"
+                             class="d-block w-100 gallery-img"
+                             alt="Photo Gallery Image">
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <button class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#gallerySlider"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+
+            <button class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#gallerySlider"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+
+        </div>
+        {% else %}
+        <div class="text-center py-3 text-muted">
+            No gallery images found.
+        </div>
+        {% endif %}
+
+    </div>
+
+</section>

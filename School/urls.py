@@ -1,10 +1,18 @@
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path("menu/<int:id>/", views.menu_detail, name="menu_detail"),
-    path('submenu/<int:submenu_id>/', views.submenu_detail, name='submenu_detail'),
+    path('about/', TemplateView.as_view(template_name='Home/Menus/about.html'), name='about-school'),
+    path('academics/', TemplateView.as_view(template_name='Home/Menus/academics.html'), name='academics'),
+    path('admissions/', TemplateView.as_view(template_name='Home/Menus/admissions.html'), name='admissions'),
+    path('facilities/', TemplateView.as_view(template_name='Home/Menus/facilities.html'), name='facilities'),
+    path('student-life/', TemplateView.as_view(template_name='Home/Menus/student-life.html'), name='student-life'),
+    path('gallery/', TemplateView.as_view(template_name='Home/Menus/media-gallery.html'), name='media-gallery'),
+    path('information-centre/', TemplateView.as_view(template_name='Home/Menus/information-centre.html'), name='information-centre'),
+    path('public-disclosure/', TemplateView.as_view(template_name='Home/Menus/public-disclosure.html'), name='public-disclosure'),
+    path('contact/', views.contact, name='contact'),
     
     #=============== Start Admin data urls =========================
     path('login/', views.Login, name='login'),
@@ -23,26 +31,18 @@ urlpatterns = [
     path("download-notice/<int:notice_id>/", views.download_notice, name="download_notice"),
     
     path('crousel/', views.add_crousel, name='crousel'),
-    path('menu/', views.add_menu, name='menu'),
-    path('submenu/', views.add_submenu, name='submenu'),
+    path('crousel/delete/<int:crousel_id>/', views.delete_crousel, name='delete_crousel'),
 
     path('school-message-list/', views.list_school_message, name='school-message-list'),
     path('school-message/', views.add_school_message, name='school-message'),
     path('school-message/delete/<int:id>/', views.delete_school_message, name='delete-school-message'),
 
-    path("inside-school/",views.Inside_School,name="inside_school"),
-    path("inside-school/edit/<int:id>/",views.Edit_Inside_School,name="edit_inside_school"),
-    path("inside-school/delete/<int:id>/",views.Delete_Inside_School,name="delete_inside_school"),
-
-    path("birthday/",views.Birthday_View,name="birthday"),
-    path("birthday/edit/<int:id>/",views.Edit_Birthday,name="edit_birthday"),
-    path("birthday/delete/<int:id>/",views.Delete_Birthday,name="delete_birthday"),
+    path("event-school/",views.Event_School,name="event_school"),
+    path("event-school/edit/<int:id>/",views.Edit_Event_School,name="edit_event_school"),
+    path("event-school/delete/<int:id>/",views.Delete_Event_School,name="delete_event_school"),
 
     path("photo-gallery/",views.Photo_Gallery, name="photo_gallery"),
     path("photo-gallery/edit/<int:id>/",views.Edit_Gallery,name="edit_gallery"),
     path("photo-gallery/delete/<int:id>/",views.Delete_Gallery,name="delete_gallery"),
-
-    path('menu-view-list/', views.list_menu_view, name='menu-view-list'),
-    path('add-menu-view/', views.add_menu_view, name='add-menu-view'),
 
 ]

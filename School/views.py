@@ -1,4 +1,6 @@
 import os
+import logging
+from smtplib import SMTPException
 from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import FileResponse, Http404, HttpResponse
@@ -6,16 +8,25 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from School.models import Birthday, Carousel, InsideSchool, Notice, SchoolMessage, brandInformation, brandLogo, menu, menuView, subMenu, PhotoGallery, Profile
+from django.core.mail import BadHeaderError
+from django.core.validators import EmailValidator
+from School.models import Carousel, Event, Notice, SchoolMessage, brandInformation, brandLogo, PhotoGallery, Profile
 from django.core.mail import send_mail
 from random import randint
+
+logger = logging.getLogger(__name__)
 
 
 def Login(request):
     if request.method == "POST":
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
 
-        email = request.POST.get("email").strip()
-        password = request.POST.get("password")
+        if not email or not password:
+            return render(request, "Home/index.html", {
+                "error": "Please enter your email and password.",
+                "show_login_modal": True,
+            })
 
         user_model = get_user_model()
 
@@ -23,7 +34,8 @@ def Login(request):
             user_obj = user_model.objects.get(email__iexact=email)
         except user_model.DoesNotExist:
             return render(request, "Home/index.html", {
-                "error": "Invalid Email or Password"
+                "error": "Invalid Email or Password",
+                "show_login_modal": True,
             })
 
         user = authenticate(
@@ -34,7 +46,8 @@ def Login(request):
 
         if user is None:
             return render(request, "Home/index.html", {
-                "error": "Invalid Email or Password"
+                "error": "Invalid Email or Password",
+                "show_login_modal": True,
             })
 
         otp = str(randint(100000,999999))
@@ -42,26 +55,27 @@ def Login(request):
         request.session["otp"] = otp
         request.session["user_id"] = user.id
 
-        send_mail(
-            subject="School Management System - Login OTP",
-            message=f"""
-            Dear User,  
-            Your One-Time Password (OTP) for login is:{otp}
-            This OTP is valid for 5 minutes.
+        # send_mail(
+        #     subject="School Management System - Login OTP",
+        #     message=f"""
+        #     Dear User,  
+        #     Your One-Time Password (OTP) for login is:{otp}
+        #     This OTP is valid for 5 minutes.
 
-            Please do not share this OTP with anyone.
+        #     Please do not share this OTP with anyone.
 
-            Regards,
-            School Management System
-            """,
+        #     Regards,
+        #     School Management System
+        #     """,
 
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[user.email],
-            fail_silently=False
-        )
+        #     from_email=settings.EMAIL_HOST_USER,
+        #     recipient_list=[user.email],
+        #     fail_silently=False
+        # )
 
         return render(request, "Home/index.html", {
             "show_otp_modal": True,
+            "show_otp": otp,
             "email": email
         })
 
@@ -76,7 +90,8 @@ def VerifyOTP(request):
 
         if session_otp is None:
             return render(request, "Home/index.html", {
-                "error": "OTP session expired. Please login again."
+                "error": "OTP session expired. Please login again.",
+                "show_login_modal": True,
             })
 
         if otp == session_otp:
@@ -112,14 +127,10 @@ def Logout(request):
 #======================== Home views ==============================
 #===================================================================
 def index(request):
-    crousels = Carousel.objects.all()
-    messages_list = SchoolMessage.objects.all().order_by("-id")[:2]
+    crousels = Carousel.objects.all().order_by("-id")[:6]
+    messages_list = SchoolMessage.objects.all().order_by("-id")
     notices = Notice.objects.filter(status=True).order_by('-publish_date', '-id')[:5]
-    events = InsideSchool.objects.filter(category="Events", status=True).order_by("-id")[:3]
-    achievements = InsideSchool.objects.filter(category="Achievements", status=True).order_by("-id")[:3]
-    awareness = InsideSchool.objects.filter(category="Social Awareness", status=True).order_by("-id")[:3]
-    birthday_list = list(Birthday.objects.filter(status=True).order_by('dob', 'student_name'))
-    birthday_groups = [birthday_list[i:i+4] for i in range(0, len(birthday_list), 4)]
+    events = Event.objects.filter(status=True).order_by("-id")
     gallerys = PhotoGallery.objects.all()
 
     return render(request, 'Home/index.html', {
@@ -127,26 +138,78 @@ def index(request):
         'notice_list': notices,
         'messages_list': messages_list,
         'events': events,
-        'achievements': achievements,
-        'awareness': awareness,
-        'birthdays': birthday_list,
-        'birthday_groups': birthday_groups,
         'gallery': gallerys
     })
 
-def menu_detail(request, id):
-    menus = menu.objects.all()
-    menu_id = get_object_or_404(menu, id=id)
-    menu_view = menuView.objects.filter(menu=menu_id).first()
-    return render(request,"Home/menu_detail.html",{"menu_view": menu_view})
 
-def submenu_detail(request, submenu_id):
-    submenu = get_object_or_404(subMenu, id=submenu_id)
-    menu_view = menuView.objects.filter(submenu=submenu).first()
-    
-    return render(request, 'Home/submenu_detail.html', {
-        'menu_view': menu_view,
-    })
+def contact(request):
+    contact_form = {
+        "name": "",
+        "email": "",
+        "phone": "",
+        "subject": "",
+        "message": "",
+    }
+
+    if request.method == "POST":
+        contact_form = {
+            "name": request.POST.get("name", "").strip(),
+            "email": request.POST.get("email", "").strip(),
+            "phone": request.POST.get("phone", "").strip(),
+            "subject": request.POST.get("subject", "").strip(),
+            "message": request.POST.get("message", "").strip(),
+        }
+        if not contact_form["name"] or not contact_form["email"] or not contact_form["subject"] or not contact_form["message"]:
+            messages.error(request, "Please complete all required fields.")
+            return render(request, "Home/Menus/contact.html", {"contact_form": contact_form}, status=400)
+
+        try:
+            EmailValidator()(contact_form["email"])
+        except ValidationError:
+            messages.error(request, "Please enter a valid email address.")
+            return render(request, "Home/Menus/contact.html", {"contact_form": contact_form}, status=400)
+
+        if len(contact_form["name"]) > 150 or len(contact_form["email"]) > 254 or len(contact_form["subject"]) > 150 or len(contact_form["phone"]) > 30:
+            messages.error(request, "Please check the length of the information entered.")
+            return render(request, "Home/Menus/contact.html", {"contact_form": contact_form}, status=400)
+
+        brand = brandInformation.objects.first()
+        if not brand or not brand.email:
+            messages.error(request, "The school email address is not available. Please contact the school by phone.")
+            return render(request, "Home/Menus/contact.html", {"contact_form": contact_form}, status=503)
+
+        email_body = "\n".join((
+            f"Name: {contact_form['name']}",
+            f"Email: {contact_form['email']}",
+            f"Phone: {contact_form['phone'] or 'Not provided'}",
+            f"Subject: {contact_form['subject']}",
+            "",
+            contact_form["message"],
+        ))
+        try:
+            sent_count = send_mail(
+                subject=f"Website enquiry: {contact_form['subject']}",
+                message=email_body,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[brand.email],
+                fail_silently=False,
+            )
+        except (BadHeaderError, SMTPException, OSError):
+            logger.exception("Unable to send a website contact enquiry.")
+            messages.error(request, "Your enquiry could not be sent right now. Please contact the school by phone or email.")
+            return render(request, "Home/Menus/contact.html", {"contact_form": contact_form}, status=503)
+
+        if sent_count != 1:
+            logger.error("The email backend did not send the website contact enquiry.")
+            messages.error(request, "Your enquiry could not be sent right now. Please contact the school by phone or email.")
+            return render(request, "Home/Menus/contact.html", {"contact_form": contact_form}, status=503)
+
+        messages.success(request, "Thank you. Your enquiry has been sent to the school.")
+        return redirect("contact")
+
+    return render(request, "Home/Menus/contact.html", {"contact_form": contact_form})
+
+
 
 #===================================================================
 #======================== Admin views ==============================
@@ -156,13 +219,12 @@ def dashboard(request):
     total_banners = Carousel.objects.count()
     total_notices = Notice.objects.count()
     total_messages = SchoolMessage.objects.count()
-    total_activities = InsideSchool.objects.count()
-    total_birthdays = Birthday.objects.count()
+    total_activities = Event.objects.count()
     total_gallery_items = PhotoGallery.objects.count()
     total_profiles = Profile.objects.count()
 
     recent_notices = Notice.objects.order_by('-publish_date', '-id')[:6]
-    recent_activities = InsideSchool.objects.order_by('-create_date', '-id')[:6]
+    recent_activities = Event.objects.order_by('-create_date', '-id')[:6]
     recent_updates_count = recent_notices.count() + recent_activities.count()
 
     return render(request, 'Admin/index.html', {
@@ -170,7 +232,6 @@ def dashboard(request):
         'total_notices': total_notices,
         'total_messages': total_messages,
         'total_activities': total_activities,
-        'total_birthdays': total_birthdays,
         'total_gallery_items': total_gallery_items,
         'total_profiles': total_profiles,
         'recent_notices': recent_notices,
@@ -239,86 +300,39 @@ def delete_brand_logo(request, logo_id):
     return redirect('brand-logo')
 
 def add_crousel(request):
-    crousels = Carousel.objects.all()
+    crousels = Carousel.objects.all().order_by("-created_at")
     if request.method == "POST":
-        title = request.POST.get("title")
+        title = request.POST.get("title", '').strip()
         image = request.FILES.get("image")
-        status = request.POST.get("status")
+        status = request.POST.get("status", "Active")
 
-        if title and image:
+        if len(title) > 100:
+            messages.error(request, "Title must be 100 characters or fewer.")
+        elif not image:
+            messages.error(request, "Please select an image for the banner.")
+        elif status not in ("Active", "Inactive"):
+            messages.error(request, "Please select a valid banner status.")
+        else:
             os.makedirs(settings.MEDIA_ROOT, exist_ok=True)
-
-            carousel = Carousel(title=title, image=image, status=status)
-            carousel.save()
+            Carousel.objects.create(
+                title=title,
+                image=image,
+                status=status,
+            )
             messages.success(request, 'Carousel added successfully.')
             return redirect('crousel')
     return render(request, 'Admin/crousel_list.html', {'crousel_list': crousels})
 
-def add_menu(request):
-    menus = menu.objects.all()
-    if request.method == "POST":
-        name = request.POST.get("name")
-        sequence = request.POST.get("sequence")
-        menu_obj = menu(name=name, sequence=sequence)
-        menu_obj.save()
-
-    return render(request, 'Admin/menu_list.html', {'menu_list': menus})
-
-def add_submenu(request):
-    menus = menu.objects.all()
-    submenus = subMenu.objects.all()
-    if request.method == "POST":
-        menu_id = request.POST.get("menu_id")
-        name = request.POST.get("name")
-
-        if not menu_id:
-            messages.error(request, 'Please select a parent menu before adding a submenu.')
-            return render(request, 'Admin/submenu_list.html', {'menu_list': menus, 'submenu_list': submenus})
-
-        if not name:
-            messages.error(request, 'Please enter a submenu name.')
-            return render(request, 'Admin/submenu_list.html', {'menu_list': menus, 'submenu_list': submenus})
-
-        submenu_obj = subMenu(menu_id=menu_id, name=name)
-        submenu_obj.save()
-        messages.success(request, 'Submenu added successfully.')
-
-    return render(request, 'Admin/submenu_list.html', {'menu_list': menus, 'submenu_list': submenus})
-
-def list_menu_view(request):
-    views = menuView.objects.all()
-    return render(request, 'Admin/menu_view_list.html',{'menu_views': views})
-
-def add_menu_view(request):
-    menus = menu.objects.all()
-    submenus = subMenu.objects.all()
-    if request.method == "POST":
-        menu_id = request.POST.get("menu")
-        submenu_id = request.POST.get("submenu")
-        pagetitle = request.POST.get("pagetitle")
-        pagecontent = request.POST.get("pagecontent")
-
-        if not menu_id and not submenu_id:
-            messages.error(request, "Please select either a menu or a submenu.")
-            return redirect('add-menu-view')
-
-        if menu_id and submenu_id:
-            messages.error(request, "Please select only one: either a menu or a submenu.")
-            return redirect('add-menu-view')
-
-        menu_view_obj = menuView(
-            menu_id=menu_id if menu_id else None,
-            submenu_id=submenu_id if submenu_id else None,
-            pagetitle=pagetitle,
-            pagecontent=pagecontent
-        )
-        try:
-            menu_view_obj.save()
-            messages.success(request, "Menu view added successfully.")
-            return redirect('menu-view-list')
-        except ValidationError as e:
-            messages.error(request, f"Error: {e.message_dict}")
-    return render(request, 'Admin/add_menu_view.html', {'menus': menus, 'submenus': submenus})
+def delete_crousel(request, crousel_id):
+    try:
+        crousel = Carousel.objects.filter(id=crousel_id).first()
+        if crousel:
+            crousel.delete()
+            messages.success(request, "Crousel delete Successfully")
+            return redirect('crousel')
+    except Carousel.DoesNotExist:
+        messages.error(request, "Crousel not found.")
+        return redirect('crousel')
 
 # Notice List
 def Notice_list(request):
@@ -327,12 +341,11 @@ def Notice_list(request):
         "notice_list": notice_list
     })
 
-
 # Add Notice
 def Add_notice(request):
     if request.method == "POST":
 
-        title = request.POST.get("title")
+        title = request.POST.get("title", '')
         image = request.FILES.get("image")
         status = True if request.POST.get("status") else False
 
@@ -418,19 +431,15 @@ def delete_school_message(request, id):
     messages.success(request, "School Message Deleted Successfully")
     return redirect("school-message-list")
 
-def Inside_School(request):
-
+def Event_School(request):
     if request.method == "POST":
-
-        category = request.POST.get("category")
         title = request.POST.get("title")
         image = request.FILES.get("image")
         description = request.POST.get("description")
         read_more_link = request.POST.get("read_more_link")
         status = True if request.POST.get("status") else False
 
-        InsideSchool.objects.create(
-            category=category,
+        Event.objects.create(
             title=title,
             image=image,
             description=description,
@@ -438,11 +447,11 @@ def Inside_School(request):
             status=status
         )
 
-        messages.success(request, "Inside School Added Successfully")
+        messages.success(request, "Event Added Successfully")
 
-        return redirect("inside_school")
+        return redirect("event_school")
 
-    inside_school = InsideSchool.objects.all().order_by("-id")
+    inside_school = Event.objects.all().order_by("-id")
 
     return render(
         request,
@@ -452,106 +461,42 @@ def Inside_School(request):
         }
     )
 
-def Edit_Inside_School(request, id):
+def Edit_Event_School(request, id):
 
-    inside = get_object_or_404(InsideSchool, id=id)
+    event = get_object_or_404(Event, id=id)
 
     if request.method == "POST":
-
-        inside.category = request.POST.get("category")
-        inside.title = request.POST.get("title")
-        inside.description = request.POST.get("description")
-        inside.read_more_link = request.POST.get("read_more_link")
+        event.title = request.POST.get("title")
+        event.description = request.POST.get("description")
+        event.read_more_link = request.POST.get("read_more_link")
 
         if request.FILES.get("image"):
-            inside.image = request.FILES.get("image")
+            event.image = request.FILES.get("image")
 
-        inside.status = True if request.POST.get("status") else False
+        event.status = True if request.POST.get("status") else False
 
-        inside.save()
+        event.save()
 
         messages.success(request, "Record Updated Successfully")
 
-    return redirect("inside_school")
+    return redirect("event_school")
 
-def Delete_Inside_School(request, id):
+def Delete_Event_School(request, id):
 
-    inside = get_object_or_404(InsideSchool, id=id)
+    event = get_object_or_404(Event, id=id)
 
-    inside.delete()
+    event.delete()
 
     messages.success(request, "Record Deleted Successfully")
 
-    return redirect("inside_school")
-
-def Birthday_View(request):
-
-    if request.method == "POST":
-
-        Birthday.objects.create(
-            student_name=request.POST.get("student_name"),
-            father_name=request.POST.get("father_name"),
-            class_name=request.POST.get("class_name"),
-            section=request.POST.get("section"),
-            dob=request.POST.get("dob"),
-            image=request.FILES.get("image"),
-            status=True if request.POST.get("status") else False
-        )
-
-        messages.success(request, "Birthday Added Successfully")
-        return redirect("birthday")
-
-    birthday_list = Birthday.objects.all().order_by("-id")
-
-    return render(
-        request,
-        "Admin/birthday.html",
-        {
-            "birthday_list": birthday_list
-        }
-    )
-
-
-def Edit_Birthday(request, id):
-
-    birthday = get_object_or_404(Birthday, id=id)
-
-    if request.method == "POST":
-
-        birthday.student_name = request.POST.get("student_name")
-        birthday.father_name = request.POST.get("father_name")
-        birthday.class_name = request.POST.get("class_name")
-        birthday.section = request.POST.get("section")
-        birthday.dob = request.POST.get("dob")
-
-        birthday.status = True if request.POST.get("status") else False
-
-        if request.FILES.get("image"):
-            birthday.image = request.FILES.get("image")
-
-        birthday.save()
-
-        messages.success(request, "Birthday Updated Successfully")
-
-        return redirect("birthday")
-
-
-def Delete_Birthday(request, id):
-
-    birthday = get_object_or_404(Birthday, id=id)
-
-    birthday.delete()
-
-    messages.success(request, "Birthday Deleted Successfully")
-
-    return redirect("birthday")
+    return redirect("event_school")
 
 def Photo_Gallery(request):
 
     if request.method == "POST":
 
         PhotoGallery.objects.create(
-            title=request.POST.get("title"),
+            title=request.POST.get("title", ''),
             image=request.FILES.get("image"),
             status=True if request.POST.get("status") else False
         )
@@ -576,7 +521,7 @@ def Edit_Gallery(request, id):
 
     if request.method == "POST":
 
-        gallery.title = request.POST.get("title")
+        gallery.title = request.POST.get("title", '')
 
         gallery.status = True if request.POST.get("status") else False
 

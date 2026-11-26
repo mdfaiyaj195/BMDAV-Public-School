@@ -1,0 +1,74 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Infrastructure &amp; Facilities | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Infrastructure &amp; Facilities</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">SPACES TO THRIVE</span>
+                <h1>Infrastructure &amp; Facilities</h1>
+                <p>Our school environment is designed to support focused learning, exploration and student wellbeing.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-building"></i>Purposeful spaces</span><span><i class="fa-solid fa-shield-heart"></i>Care and safety</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">F</div>
+        </section>
+        <section class="information-overview" id="school-campus">
+            <span class="information-kicker">A SUPPORTIVE ENVIRONMENT</span>
+            <h2>School Campus</h2>
+            <p>From everyday classrooms to spaces for practical discovery and recreation, our campus supports a balanced school experience. We work to maintain an environment where students feel welcomed, supported and ready to participate.</p>
+            <a class="topic-back-link" href="{% url 'index' %}"><i class="fa-solid fa-arrow-left"></i>Return to Home</a>
+        </section>
+
+        <section class="information-static-section" id="classrooms">
+            <span class="information-kicker">EVERYDAY LEARNING</span>
+            <h2>Classrooms</h2>
+            <p>Classrooms provide a welcoming setting for lessons, discussion and collaborative activities. Students are encouraged to participate, ask questions and work together as they build knowledge and confidence.</p>
+        </section>
+
+        <section class="information-static-section" id="science-laboratories">
+            <span class="information-kicker">LEARNING BY DISCOVERY</span>
+            <h2>Science Laboratories</h2>
+            <p>Science laboratory learning helps students connect classroom concepts with observation and practical activity. Students use these learning spaces under teacher guidance and follow the instructions provided for safe participation.</p>
+        </section>
+
+        <section class="information-static-section" id="computer-laboratory">
+            <span class="information-kicker">DIGITAL LEARNING</span>
+            <h2>Computer Laboratory</h2>
+            <p>The computer laboratory supports students in developing digital awareness and practical technology skills. Activities are guided by teachers and are intended to encourage responsible, purposeful use of technology.</p>
+        </section>
+
+        <section class="information-static-section" id="library">
+            <span class="information-kicker">READING AND RESEARCH</span>
+            <h2>Library</h2>
+            <p>The library encourages reading, independent learning and exploration of new ideas. Students can make use of the library as a place to build knowledge, develop study habits and enjoy books.</p>
+        </section>
+
+        <section class="information-static-section" id="sports-playground">
+            <span class="information-kicker">ACTIVE AND HEALTHY</span>
+            <h2>Sports and Playground</h2>
+            <p>Sports and outdoor play help students develop fitness, coordination, teamwork and sportsmanship. Participation in physical activities supports a healthy balance between learning and recreation.</p>
+        </section>
+
+        <section class="information-static-section" id="transport-facilities">
+            <span class="information-kicker">GETTING TO SCHOOL</span>
+            <h2>Transport Facilities</h2>
+            <p>Transport availability, routes, stops and timings may vary. Families should contact the school office to confirm current transport options and receive the latest guidance before making arrangements.</p>
+        </section>
+
+        <section class="information-static-section" id="safety-security">
+            <span class="information-kicker">A CARING ENVIRONMENT</span>
+            <h2>Safety and Security</h2>
+            <p>The school promotes a safe and respectful environment through clear expectations, responsible supervision and cooperation among students, staff and families. Students are encouraged to follow school safety instructions and seek help from staff when needed.</p>
+        </section>
+
+        <section class="information-static-section" id="health-hygiene">
+            <span class="information-kicker">WELLBEING</span>
+            <h2>Health and Hygiene</h2>
+            <p>Good health and hygiene habits are an important part of student wellbeing. The school encourages cleanliness, healthy routines and consideration for the wellbeing of others throughout the school day.</p>
+        </section>
+    </div>
+</main>
+{% endblock %}

@@ -32,33 +32,6 @@ class brandInformation(models.Model):
     def __str__(self):
         return self.brand_name 
      
-class menu(models.Model):
-    name = models.CharField(max_length=255, default="")
-    sequence = models.PositiveIntegerField(default=1)
-    create_date = models.DateTimeField(auto_now_add=True)
-
-class subMenu(models.Model):
-    menu = models.ForeignKey(menu, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255, default="")
-    create_date = models.DateTimeField(auto_now_add=True)
-
-class menuView(models.Model):
-    menu = models.ForeignKey(menu, on_delete=models.CASCADE, null=True, blank=True)
-    submenu = models.ForeignKey(subMenu, on_delete=models.CASCADE, null=True, blank=True)
-    pagetitle = models.TextField(default="")
-    pagecontent = models.TextField(default="")
-    create_date = models.DateTimeField(auto_now_add=True)
-    
-    def clean(self):
-        # if both are empty
-        if not self.menu and not self.submenu:
-            raise ValidationError("Either menu or submenu must be selected.")
-        # if both are selected then also raise error
-        if self.menu and self.submenu:
-            raise ValidationError("only one of menu or submenu can be selected.")
-    def __str__(self):
-        return self.pagetitle
-
 class brandLogo(models.Model):   #Done
     logo = models.ImageField(upload_to="Brand_Logo",default="")
     favicon = models.ImageField(upload_to="Brand_Logo",default="")
@@ -66,13 +39,13 @@ class brandLogo(models.Model):   #Done
 
 
 class Carousel(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="crousel",default="")
     status = models.CharField(max_length=50, default="Active")
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Notice(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True, null=True)
     image = models.FileField(upload_to="notices/", blank=True, null=True)
     publish_date = models.DateField(auto_now_add=True)
     status = models.BooleanField(default=True)
@@ -82,7 +55,7 @@ class Notice(models.Model):
     
 class SchoolMessage(models.Model):
     name = models.CharField(max_length=150)
-    image = models.ImageField(upload_to="head_mistress/")
+    image = models.ImageField(upload_to="messages/")
     message = models.TextField()
     link = models.CharField(max_length=255, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -90,14 +63,7 @@ class SchoolMessage(models.Model):
     def __str__(self):
         return self.name
     
-class InsideSchool(models.Model):
-    CATEGORY = (
-        ('Events', 'Events'),
-        ('Achievements', 'Achievements'),
-        ('Social Awareness', 'Social Awareness'),
-    )
-
-    category = models.CharField(max_length=50, choices=CATEGORY)
+class Event(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to="inside_school/")
     description = models.TextField()
@@ -105,24 +71,9 @@ class InsideSchool(models.Model):
     status = models.BooleanField(default=True)
     create_date = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.category} - {self.title}"
-    
-class Birthday(models.Model):
-    student_name = models.CharField(max_length=255)
-    father_name = models.CharField(max_length=255)
-    class_name = models.CharField(max_length=50)
-    section = models.CharField(max_length=10)
-    dob = models.DateField()
-    image = models.ImageField(upload_to="birthday/")
-    status = models.BooleanField(default=True)
-    create_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.student_name
     
 class PhotoGallery(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to="gallery/")
     status = models.BooleanField(default=True)
     create_date = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,50 @@
+{% extends 'Home/Base.html' %}
+{% load static %}
+{% block title %}Media &amp; Gallery | B.M. DAV Public School{% endblock %}
+{% block page_styles %}<link rel="stylesheet" href="{% static 'css/section-pages.css' %}">{% endblock %}
+{% block content %}
+<main class="information-page">
+    <div class="information-container">
+        <nav class="information-breadcrumb" aria-label="Breadcrumb"><a href="{% url 'index' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Media &amp; Gallery</span></nav>
+        <section class="information-hero">
+            <div class="information-hero-content">
+                <span class="information-eyebrow">SCHOOL IN PICTURES</span>
+                <h1>Media &amp; Gallery</h1>
+                <p>Take a closer look at the people, celebrations and everyday experiences that make our school special.</p>
+                <div class="information-hero-meta"><span><i class="fa-solid fa-camera"></i>Memorable moments</span><span><i class="fa-solid fa-images"></i>Our community</span></div>
+            </div>
+            <div class="information-hero-mark" aria-hidden="true">M</div>
+        </section>
+        <section class="information-overview" id="photo-gallery">
+            <span class="information-kicker">A GLIMPSE OF SCHOOL LIFE</span>
+            <h2>Photo Gallery</h2>
+            <p>Explore photographs that capture learning, teamwork, celebrations and everyday moments from the school community. The Home page gallery features selected photographs from school life.</p>
+            <a class="topic-back-link" href="{% url 'index' %}#gallery"><i class="fa-solid fa-images"></i>View the Home Gallery</a>
+        </section>
+
+        <section class="information-static-section" id="video-gallery">
+            <span class="information-kicker">WATCH SCHOOL MOMENTS</span>
+            <h2>Video Gallery</h2>
+            <p>The Video Gallery is a place for recordings of school programmes, performances and activities. Videos can be added here as they are made available for the school community.</p>
+        </section>
+
+        <section class="information-static-section" id="events-gallery">
+            <span class="information-kicker">EVENT HIGHLIGHTS</span>
+            <h2>Events Gallery</h2>
+            <p>Revisit special occasions and school events through photographs and highlights. These moments celebrate student participation, teamwork and the shared experiences of our school community.</p>
+        </section>
+
+        <section class="information-static-section" id="campus-photographs">
+            <span class="information-kicker">AROUND OUR SCHOOL</span>
+            <h2>Campus Photographs</h2>
+            <p>Campus photographs offer a glimpse of the school's learning environment and the spaces students use throughout the school day. They help families become familiar with the campus and its atmosphere.</p>
+        </section>
+
+        <section class="information-static-section" id="categorised-albums">
+            <span class="information-kicker">BROWSE BY INTEREST</span>
+            <h2>Categorised Albums</h2>
+            <p>Albums can be organised by theme to make it easier to explore school life. Categories may include classroom activities, celebrations, sports, cultural programmes and campus life.</p>
+        </section>
+    </div>
+</main>
+{% endblock %}
